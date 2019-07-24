@@ -2220,19 +2220,6 @@ references:
   isSpec: "True"
   fullName: SafeApp.Session.SetAdditionalSearchPathAsync
   nameWithType: Session.SetAdditionalSearchPathAsync
-- uid: SafeApp.Session.SimulateMockNetworkDisconnectAsync
-  name: SimulateMockNetworkDisconnectAsync()
-  href: api/SafeApp.Session.html#SafeApp_Session_SimulateMockNetworkDisconnectAsync
-  commentId: M:SafeApp.Session.SimulateMockNetworkDisconnectAsync
-  fullName: SafeApp.Session.SimulateMockNetworkDisconnectAsync()
-  nameWithType: Session.SimulateMockNetworkDisconnectAsync()
-- uid: SafeApp.Session.SimulateMockNetworkDisconnectAsync*
-  name: SimulateMockNetworkDisconnectAsync
-  href: api/SafeApp.Session.html#SafeApp_Session_SimulateMockNetworkDisconnectAsync_
-  commentId: Overload:SafeApp.Session.SimulateMockNetworkDisconnectAsync
-  isSpec: "True"
-  fullName: SafeApp.Session.SimulateMockNetworkDisconnectAsync
-  nameWithType: Session.SimulateMockNetworkDisconnectAsync
 - uid: SafeApp.Utilities
   name: SafeApp.Utilities
   href: api/SafeApp.Utilities.html
@@ -4392,19 +4379,6 @@ references:
   isSpec: "True"
   fullName: SafeApp.Utilities.IAppBindings.SignSecKeyNewAsync
   nameWithType: IAppBindings.SignSecKeyNewAsync
-- uid: SafeApp.Utilities.IAppBindings.TestSimulateNetworkDisconnectAsync(System.IntPtr)
-  name: TestSimulateNetworkDisconnectAsync(IntPtr)
-  href: api/SafeApp.Utilities.IAppBindings.html#SafeApp_Utilities_IAppBindings_TestSimulateNetworkDisconnectAsync_System_IntPtr_
-  commentId: M:SafeApp.Utilities.IAppBindings.TestSimulateNetworkDisconnectAsync(System.IntPtr)
-  fullName: SafeApp.Utilities.IAppBindings.TestSimulateNetworkDisconnectAsync(System.IntPtr)
-  nameWithType: IAppBindings.TestSimulateNetworkDisconnectAsync(IntPtr)
-- uid: SafeApp.Utilities.IAppBindings.TestSimulateNetworkDisconnectAsync*
-  name: TestSimulateNetworkDisconnectAsync
-  href: api/SafeApp.Utilities.IAppBindings.html#SafeApp_Utilities_IAppBindings_TestSimulateNetworkDisconnectAsync_
-  commentId: Overload:SafeApp.Utilities.IAppBindings.TestSimulateNetworkDisconnectAsync
-  isSpec: "True"
-  fullName: SafeApp.Utilities.IAppBindings.TestSimulateNetworkDisconnectAsync
-  nameWithType: IAppBindings.TestSimulateNetworkDisconnectAsync
 - uid: SafeApp.Utilities.IAppBindings.VerifyAsync(System.IntPtr,System.Collections.Generic.List{System.Byte},System.UInt64)
   name: VerifyAsync(IntPtr, List<Byte>, UInt64)
   href: api/SafeApp.Utilities.IAppBindings.html#SafeApp_Utilities_IAppBindings_VerifyAsync_System_IntPtr_System_Collections_Generic_List_System_Byte__System_UInt64_
