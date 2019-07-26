@@ -62,24 +62,30 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="safe_app_csharp-change-log">safe_app_csharp Change Log</h1>
 
+<h2 id="022">[0.2.2]</h2>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Removed IntPtr.Zero check from <code>SafeAppPtr</code> implicit operator function.</li>
+</ul>
+<h2 id="021">[0.2.1]</h2>
+<h3 id="changed-1">Changed</h3>
+<ul>
+<li>Update projects to generate and add API documentation.</li>
+<li>Update .NET Core target file to include native libraries in the project.</li>
+<li>Added seperate NativeHandles for and marked Zero NativeHandle obsolete.</li>
+</ul>
 <h2 id="020">[0.2.0]</h2>
 <h3 id="added">Added</h3>
 <ul>
 <li>Android x86_64 platform support.</li>
 <li>API documentation.</li>
 </ul>
-<h3 id="changed">Changed</h3>
+<h3 id="changed-2">Changed</h3>
 <ul>
-<li>Updated safe_app bindings to v0.9.0 of <a href="https://github.com/maidsafe/safe_client_libs/tree/master/safe_app">safe_app</a>.
-<ul>
+<li>Updated safe_app bindings to v0.9.0 of <a href="https://github.com/maidsafe/safe_client_libs/tree/master/safe_app">safe_app</a>.</li>
 <li>NFS APIs (dir_delete, dir_update) updated to return new file version.</li>
-</ul>
-</li>
-<li>Updated mock authenticator bindings to v0.9.0 of <a href="https://github.com/maidsafe/safe_client_libs/tree/master/safe_authenticator">safe_authenticator</a>.
-<ul>
+<li>Updated mock authenticator bindings to v0.9.0 of <a href="https://github.com/maidsafe/safe_client_libs/tree/master/safe_authenticator">safe_authenticator</a>.</li>
 <li>Update ShareMDataRequest to hold the list of MDataResponse.</li>
-</ul>
-</li>
 <li>Changed parameter encodedReq to encodedResponse in function DecodeIpcMessageAsync.</li>
 <li>Added new null reference native handles (AnyOne, EmptyMDataEntries, EmptyMDataPermissions) and marked zero native handle obselete.</li>
 <li>Removed SetAdditionalSearchPath call from InitLoggingAsync.</li>
