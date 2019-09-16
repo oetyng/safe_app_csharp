@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using JetBrains.Annotations;
 using SafeApp.AppBindings;
 
 // ReSharper disable ConvertToLocalFunction
-
 // ReSharper disable InconsistentNaming
 
 namespace SafeApp.IData

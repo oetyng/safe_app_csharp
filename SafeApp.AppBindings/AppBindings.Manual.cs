@@ -1,7 +1,6 @@
 ﻿#if !NETSTANDARD1_2 || __DESKTOP__
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
