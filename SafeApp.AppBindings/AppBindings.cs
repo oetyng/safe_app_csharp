@@ -12,6 +12,9 @@ using SafeApp.Core;
 // ReSharper disable UnusedMember.Global
 // ReSharper disable InconsistentNaming
 
+// ReSharper disable UnusedMember.Global
+// ReSharper disable InconsistentNaming
+
 namespace SafeApp.AppBindings
 {
     internal partial class AppBindings : IAppBindings
