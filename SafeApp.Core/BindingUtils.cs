@@ -79,14 +79,13 @@ namespace SafeApp.Core
             CompleteTask(userData, result, () => true);
         }
 
-        public static IntPtr CopyFromByteList(List<byte> list)
+        public static IntPtr CopyFromByteList(byte[] array)
         {
-            if (list == null || list.Count == 0)
+            if (array == null || array.Length == 0)
             {
                 return IntPtr.Zero;
             }
 
-            var array = list.ToArray();
             var size = Marshal.SizeOf(array[0]) * array.Length;
             var ptr = Marshal.AllocHGlobal(size);
             Marshal.Copy(array, 0, ptr, array.Length);
@@ -122,9 +121,9 @@ namespace SafeApp.Core
             return array;
         }
 
-        public static List<byte> CopyToByteList(IntPtr ptr, int len)
+        public static byte[] CopyToByteList(IntPtr ptr, int len)
         {
-            return new List<byte>(CopyToByteArray(ptr, len));
+            return CopyToByteArray(ptr, len);
         }
 
         public static List<T> CopyToObjectList<T>(IntPtr ptr, int len)

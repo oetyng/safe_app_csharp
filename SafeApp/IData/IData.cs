@@ -70,10 +70,10 @@ namespace SafeApp.IData
         /// <param name="fromPos">Start position.</param>
         /// <param name="len">End position or end of data.</param>
         /// <returns></returns>
-        public async Task<List<byte>> ReadFromSelfEncryptorAsync(NativeHandle seHandle, ulong fromPos, ulong len)
+        public async Task<byte[]> ReadFromSelfEncryptorAsync(NativeHandle seHandle, ulong fromPos, ulong len)
         {
             var dataArray = await AppBindings.IDataReadFromSelfEncryptorAsync(_appPtr, seHandle, fromPos, len);
-            return new List<byte>(dataArray);
+            return dataArray;
         }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace SafeApp.IData
         /// <param name="seHandle">SE handle</param>
         /// <param name="data">Data to append in existing Immutable Data.</param>
         /// <returns></returns>
-        public Task WriteToSelfEncryptorAsync(NativeHandle seHandle, List<byte> data)
+        public Task WriteToSelfEncryptorAsync(NativeHandle seHandle, byte[] data)
         {
             return AppBindings.IDataWriteToSelfEncryptorAsync(_appPtr, seHandle, data);
         }

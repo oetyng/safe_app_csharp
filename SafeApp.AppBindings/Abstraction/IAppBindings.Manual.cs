@@ -17,7 +17,7 @@ namespace SafeApp.AppBindings
             Action oDisconnectNotifierCb,
             Action<FfiResult, IntPtr, GCHandle> oCb);
 
-        void AppUnregistered(List<byte> bootstrapConfig, Action oDisconnectNotifierCb, Action<FfiResult, IntPtr, GCHandle> oCb);
+        void AppUnregistered(byte[] bootstrapConfig, Action oDisconnectNotifierCb, Action<FfiResult, IntPtr, GCHandle> oCb);
 
         Task<IpcMsg> DecodeIpcMsgAsync(string msg);
     }

@@ -146,7 +146,7 @@ namespace SafeApp
         /// </summary>
         /// <param name="bootstrapConfig"></param>
         /// <returns></returns>
-        public static Task<Session> AppUnregisteredAsync(List<byte> bootstrapConfig)
+        public static Task<Session> AppUnregisteredAsync(byte[] bootstrapConfig)
         {
             return Task.Run(
                 () =>
@@ -221,7 +221,7 @@ namespace SafeApp
         /// <returns></returns>
         public static Task<(uint, string)> EncodeUnregisteredRequestAsync(string reqId)
         {
-            return AppBindings.EncodeUnregisteredReqAsync(Encoding.UTF8.GetBytes(reqId).ToList());
+            return AppBindings.EncodeUnregisteredReqAsync(Encoding.UTF8.GetBytes(reqId));
         }
 
         /// <summary>

@@ -39,7 +39,7 @@ namespace SafeApp.Misc
         /// </summary>
         /// <param name="source">Data to be hashed.</param>
         /// <returns>Generated hash.</returns>
-        public static Task<List<byte>> Sha3HashAsync(List<byte> source)
+        public static Task<byte[]> Sha3HashAsync(byte[] source)
         {
             return AppBindings.Sha3HashAsync(source);
         }
@@ -71,7 +71,7 @@ namespace SafeApp.Misc
         /// <param name="encPubKey">Public Encryption Key.</param>
         /// <param name="encSecKey">Secret Encryption Key.</param>
         /// <returns>Decrypted data.</returns>
-        public Task<List<byte>> DecryptAsync(List<byte> cipherText, NativeHandle encPubKey, NativeHandle encSecKey)
+        public Task<byte[]> DecryptAsync(byte[] cipherText, NativeHandle encPubKey, NativeHandle encSecKey)
         {
             return AppBindings.DecryptAsync(_appPtr, cipherText, encPubKey, encSecKey);
         }
@@ -83,7 +83,7 @@ namespace SafeApp.Misc
         /// <param name="pkHandle">Sender's Encrypt Public Key.</param>
         /// <param name="skHandle">Receiver's Encrypt Secret Key.</param>
         /// <returns>Decrypted data.</returns>
-        public Task<List<byte>> DecryptSealedBoxAsync(List<byte> cipherText, NativeHandle pkHandle, NativeHandle skHandle)
+        public Task<byte[]> DecryptSealedBoxAsync(byte[] cipherText, NativeHandle pkHandle, NativeHandle skHandle)
         {
             return AppBindings.DecryptSealedBoxAsync(_appPtr, cipherText, pkHandle, skHandle);
         }
@@ -137,7 +137,7 @@ namespace SafeApp.Misc
         /// <param name="encPubKey">Public Encryption Key.</param>
         /// <param name="encSecKey">Secret Encryption Key.</param>
         /// <returns></returns>
-        public Task<List<byte>> EncryptAsync(List<byte> data, NativeHandle encPubKey, NativeHandle encSecKey)
+        public Task<byte[]> EncryptAsync(byte[] data, NativeHandle encPubKey, NativeHandle encSecKey)
         {
             return AppBindings.EncryptAsync(_appPtr, data, encPubKey, encSecKey);
         }
@@ -148,7 +148,7 @@ namespace SafeApp.Misc
         /// <param name="inputData">Data to be encrypted.</param>
         /// <param name="pkHandle"></param>
         /// <returns>Ciphered text in byte list format.</returns>
-        public Task<List<byte>> EncryptSealedBoxAsync(List<byte> inputData, NativeHandle pkHandle)
+        public Task<byte[]> EncryptSealedBoxAsync(byte[] inputData, NativeHandle pkHandle)
         {
             return AppBindings.EncryptSealedBoxAsync(_appPtr, inputData, pkHandle);
         }
@@ -185,7 +185,7 @@ namespace SafeApp.Misc
         /// <param name="data">Data to sign.</param>
         /// <param name="signSecKey">Secret Sign Key to sign the given data.</param>
         /// <returns>Returns the signed data.</returns>
-        public Task<List<byte>> SignAsync(List<byte> data, NativeHandle signSecKey)
+        public Task<byte[]> SignAsync(byte[] data, NativeHandle signSecKey)
         {
             return AppBindings.SignAsync(_appPtr, data, signSecKey);
         }
@@ -259,7 +259,7 @@ namespace SafeApp.Misc
         /// <param name="signedData">Data to verify signature.</param>
         /// <param name="signPubKey">Public Sign Key to verify.</param>
         /// <returns></returns>
-        public Task<List<byte>> VerifyAsync(List<byte> signedData, NativeHandle signPubKey)
+        public Task<byte[]> VerifyAsync(byte[] signedData, NativeHandle signPubKey)
         {
             return AppBindings.VerifyAsync(_appPtr, signedData, signPubKey);
         }

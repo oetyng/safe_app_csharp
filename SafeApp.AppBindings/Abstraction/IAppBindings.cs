@@ -47,9 +47,9 @@ namespace SafeApp.AppBindings
 
         Task<ulong> CipherOptNewSymmetricAsync(IntPtr app);
 
-        Task<List<byte>> DecryptAsync(IntPtr app, List<byte> data, ulong publicKeyH, ulong secretKeyH);
+        Task<byte[]> DecryptAsync(IntPtr app, byte[] data, ulong publicKeyH, ulong secretKeyH);
 
-        Task<List<byte>> DecryptSealedBoxAsync(IntPtr app, List<byte> data, ulong publicKeyH, ulong secretKeyH);
+        Task<byte[]> DecryptSealedBoxAsync(IntPtr app, byte[] data, ulong publicKeyH, ulong secretKeyH);
 
         Task<ulong> DirDeleteFileAsync(IntPtr app, ref MDataInfo parentInfo, string fileName, ulong version);
 
@@ -67,7 +67,7 @@ namespace SafeApp.AppBindings
 
         Task<(uint, string)> EncodeShareMDataReqAsync(ref ShareMDataReq req);
 
-        Task<(uint, string)> EncodeUnregisteredReqAsync(List<byte> extraData);
+        Task<(uint, string)> EncodeUnregisteredReqAsync(byte[] extraData);
 
         Task EncPubKeyFreeAsync(IntPtr app, ulong handle);
 
@@ -75,9 +75,9 @@ namespace SafeApp.AppBindings
 
         Task<ulong> EncPubKeyNewAsync(IntPtr app, byte[] data);
 
-        Task<List<byte>> EncryptAsync(IntPtr app, List<byte> data, ulong publicKeyH, ulong secretKeyH);
+        Task<byte[]> EncryptAsync(IntPtr app, byte[] data, ulong publicKeyH, ulong secretKeyH);
 
-        Task<List<byte>> EncryptSealedBoxAsync(IntPtr app, List<byte> data, ulong publicKeyH);
+        Task<byte[]> EncryptSealedBoxAsync(IntPtr app, byte[] data, ulong publicKeyH);
 
         Task EncSecretKeyFreeAsync(IntPtr app, ulong handle);
 
@@ -89,11 +89,11 @@ namespace SafeApp.AppBindings
 
         Task<ulong> FileOpenAsync(IntPtr app, ref MDataInfo parentInfo, ref File file, ulong openMode);
 
-        Task<List<byte>> FileReadAsync(IntPtr app, ulong fileH, ulong position, ulong len);
+        Task<byte[]> FileReadAsync(IntPtr app, ulong fileH, ulong position, ulong len);
 
         Task<ulong> FileSizeAsync(IntPtr app, ulong fileH);
 
-        Task FileWriteAsync(IntPtr app, ulong fileH, List<byte> data);
+        Task FileWriteAsync(IntPtr app, ulong fileH, byte[] data);
 
         Task<byte[]> GenerateNonceAsync();
 
@@ -103,7 +103,7 @@ namespace SafeApp.AppBindings
 
         Task<ulong> IDataNewSelfEncryptorAsync(IntPtr app);
 
-        Task<List<byte>> IDataReadFromSelfEncryptorAsync(IntPtr app, ulong seH, ulong fromPos, ulong len);
+        Task<byte[]> IDataReadFromSelfEncryptorAsync(IntPtr app, ulong seH, ulong fromPos, ulong len);
 
         Task IDataSelfEncryptorReaderFreeAsync(IntPtr app, ulong handle);
 
@@ -113,47 +113,47 @@ namespace SafeApp.AppBindings
 
         Task<ulong> IDataSizeAsync(IntPtr app, ulong seH);
 
-        Task IDataWriteToSelfEncryptorAsync(IntPtr app, ulong seH, List<byte> data);
+        Task IDataWriteToSelfEncryptorAsync(IntPtr app, ulong seH, byte[] data);
 
         bool IsMockBuild();
 
         Task MDataDelUserPermissionsAsync(IntPtr app, ref MDataInfo info, ulong userH, ulong version);
 
-        Task<List<byte>> MDataEncodeMetadataAsync(ref MetadataResponse metadata);
+        Task<byte[]> MDataEncodeMetadataAsync(ref MetadataResponse metadata);
 
         Task<ulong> MDataEntriesAsync(IntPtr app, ref MDataInfo info);
 
         Task MDataEntriesFreeAsync(IntPtr app, ulong entriesH);
 
-        Task<(List<byte>, ulong)> MDataEntriesGetAsync(IntPtr app, ulong entriesH, List<byte> key);
+        Task<(byte[], ulong)> MDataEntriesGetAsync(IntPtr app, ulong entriesH, byte[] key);
 
-        Task MDataEntriesInsertAsync(IntPtr app, ulong entriesH, List<byte> key, List<byte> value);
+        Task MDataEntriesInsertAsync(IntPtr app, ulong entriesH, byte[] key, byte[] value);
 
         Task<ulong> MDataEntriesLenAsync(IntPtr app, ulong entriesH);
 
         Task<ulong> MDataEntriesNewAsync(IntPtr app);
 
-        Task MDataEntryActionsDeleteAsync(IntPtr app, ulong actionsH, List<byte> key, ulong entryVersion);
+        Task MDataEntryActionsDeleteAsync(IntPtr app, ulong actionsH, byte[] key, ulong entryVersion);
 
         Task MDataEntryActionsFreeAsync(IntPtr app, ulong actionsH);
 
-        Task MDataEntryActionsInsertAsync(IntPtr app, ulong actionsH, List<byte> key, List<byte> value);
+        Task MDataEntryActionsInsertAsync(IntPtr app, ulong actionsH, byte[] key, byte[] value);
 
         Task<ulong> MDataEntryActionsNewAsync(IntPtr app);
 
-        Task MDataEntryActionsUpdateAsync(IntPtr app, ulong actionsH, List<byte> key, List<byte> value, ulong entryVersion);
+        Task MDataEntryActionsUpdateAsync(IntPtr app, ulong actionsH, byte[] key, byte[] value, ulong entryVersion);
 
-        Task<(List<byte>, ulong)> MDataGetValueAsync(IntPtr app, ref MDataInfo info, List<byte> key);
+        Task<(byte[], ulong)> MDataGetValueAsync(IntPtr app, ref MDataInfo info, byte[] key);
 
         Task<ulong> MDataGetVersionAsync(IntPtr app, ref MDataInfo info);
 
-        Task<List<byte>> MDataInfoDecryptAsync(ref MDataInfo info, List<byte> input);
+        Task<byte[]> MDataInfoDecryptAsync(ref MDataInfo info, byte[] input);
 
-        Task<MDataInfo> MDataInfoDeserialiseAsync(List<byte> encoded);
+        Task<MDataInfo> MDataInfoDeserialiseAsync(byte[] encoded);
 
-        Task<List<byte>> MDataInfoEncryptEntryKeyAsync(ref MDataInfo info, List<byte> input);
+        Task<byte[]> MDataInfoEncryptEntryKeyAsync(ref MDataInfo info, byte[] input);
 
-        Task<List<byte>> MDataInfoEncryptEntryValueAsync(ref MDataInfo info, List<byte> input);
+        Task<byte[]> MDataInfoEncryptEntryValueAsync(ref MDataInfo info, byte[] input);
 
         Task<MDataInfo> MDataInfoNewPrivateAsync(byte[] name, ulong typeTag, byte[] secretKey, byte[] nonce);
 
@@ -161,7 +161,7 @@ namespace SafeApp.AppBindings
 
         Task<MDataInfo> MDataInfoRandomPublicAsync(ulong typeTag);
 
-        Task<List<byte>> MDataInfoSerialiseAsync(ref MDataInfo info);
+        Task<byte[]> MDataInfoSerialiseAsync(ref MDataInfo info);
 
         Task<List<MDataEntry>> MDataListEntriesAsync(IntPtr app, ulong entriesH);
 
@@ -193,9 +193,9 @@ namespace SafeApp.AppBindings
 
         Task MDataSetUserPermissionsAsync(IntPtr app, ref MDataInfo info, ulong userH, ref PermissionSet permissionSet, ulong version);
 
-        Task<List<byte>> Sha3HashAsync(List<byte> data);
+        Task<byte[]> Sha3HashAsync(byte[] data);
 
-        Task<List<byte>> SignAsync(IntPtr app, List<byte> data, ulong signSkH);
+        Task<byte[]> SignAsync(IntPtr app, byte[] data, ulong signSkH);
 
         Task<(ulong, ulong)> SignGenerateKeyPairAsync(IntPtr app);
 
@@ -211,7 +211,7 @@ namespace SafeApp.AppBindings
 
         Task<ulong> SignSecKeyNewAsync(IntPtr app, byte[] data);
 
-        Task<List<byte>> VerifyAsync(IntPtr app, List<byte> signedData, ulong signPkH);
+        Task<byte[]> VerifyAsync(IntPtr app, byte[] signedData, ulong signPkH);
     }
 }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

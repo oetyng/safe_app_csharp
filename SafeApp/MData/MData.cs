@@ -46,7 +46,7 @@ namespace SafeApp.MData
         /// </summary>
         /// <param name="metadataResponse">Metadata for user Mutable Data.</param>
         /// <returns>Encoded metadata.</returns>
-        public Task<List<byte>> EncodeMetadata(MetadataResponse metadataResponse)
+        public Task<byte[]> EncodeMetadata(MetadataResponse metadataResponse)
         {
             return AppBindings.MDataEncodeMetadataAsync(ref metadataResponse);
         }
@@ -57,7 +57,7 @@ namespace SafeApp.MData
         /// <param name="mDataInfo">MDataInfo to access Mutable Data.</param>
         /// <param name="key">Mutable Data entry key.</param>
         /// <returns>Mutable Data entry value and its current version.</returns>
-        public Task<(List<byte>, ulong)> GetValueAsync(MDataInfo mDataInfo, List<byte> key)
+        public Task<(byte[], ulong)> GetValueAsync(MDataInfo mDataInfo, byte[] key)
         {
             return AppBindings.MDataGetValueAsync(_appPtr, ref mDataInfo, key);
         }

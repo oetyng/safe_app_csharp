@@ -133,7 +133,7 @@ namespace SafeApp.Misc
         /// <param name="start">Start position.</param>
         /// <param name="end">End position.</param>
         /// <returns>Content of file in provided range.</returns>
-        public Task<List<byte>> FileReadAsync(NativeHandle fileContextHandle, ulong start, ulong end)
+        public Task<byte[]> FileReadAsync(NativeHandle fileContextHandle, ulong start, ulong end)
         {
             return AppBindings.FileReadAsync(_appPtr, fileContextHandle, start, end);
         }
@@ -155,7 +155,7 @@ namespace SafeApp.Misc
         /// <param name="fileContextHandle">File handle.</param>
         /// <param name="data">Data to write in file.</param>
         /// <returns></returns>
-        public Task FileWriteAsync(NativeHandle fileContextHandle, List<byte> data)
+        public Task FileWriteAsync(NativeHandle fileContextHandle, byte[] data)
         {
             return AppBindings.FileWriteAsync(_appPtr, fileContextHandle, data);
         }

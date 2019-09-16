@@ -30,7 +30,7 @@ namespace SafeApp.MData
         /// <param name="mDataInfo">The mdataInfo of a Mutable Data.</param>
         /// <param name="cipherText">Data to be decrypted.</param>
         /// <returns>The decrypted key/value.</returns>
-        public Task<List<byte>> DecryptAsync(MDataInfo mDataInfo, List<byte> cipherText)
+        public Task<byte[]> DecryptAsync(MDataInfo mDataInfo, byte[] cipherText)
         {
             return AppBindings.MDataInfoDecryptAsync(ref mDataInfo, cipherText);
         }
@@ -40,7 +40,7 @@ namespace SafeApp.MData
         /// </summary>
         /// <param name="serialisedData">Serialised value to create new mdataInfo object.</param>
         /// <returns>New mdataInfo instance.</returns>
-        public Task<MDataInfo> DeserialiseAsync(List<byte> serialisedData)
+        public Task<MDataInfo> DeserialiseAsync(byte[] serialisedData)
         {
             return AppBindings.MDataInfoDeserialiseAsync(serialisedData);
         }
@@ -51,7 +51,7 @@ namespace SafeApp.MData
         /// <param name="mDataInfo">mdataInfo</param>
         /// <param name="inputBytes">The data to be encrypted.</param>
         /// <returns>The encrypted entry key.</returns>
-        public Task<List<byte>> EncryptEntryKeyAsync(MDataInfo mDataInfo, List<byte> inputBytes)
+        public Task<byte[]> EncryptEntryKeyAsync(MDataInfo mDataInfo, byte[] inputBytes)
         {
             return AppBindings.MDataInfoEncryptEntryKeyAsync(ref mDataInfo, inputBytes);
         }
@@ -64,7 +64,7 @@ namespace SafeApp.MData
         /// <param name="mDataInfo"></param>
         /// <param name="inputBytes">The data to be encrypted.</param>
         /// <returns>The encrypted entry value.</returns>
-        public Task<List<byte>> EncryptEntryValueAsync(MDataInfo mDataInfo, List<byte> inputBytes)
+        public Task<byte[]> EncryptEntryValueAsync(MDataInfo mDataInfo, byte[] inputBytes)
         {
             return AppBindings.MDataInfoEncryptEntryValueAsync(ref mDataInfo, inputBytes);
         }
@@ -107,10 +107,10 @@ namespace SafeApp.MData
         /// </summary>
         /// <param name="mDataInfo">mdataInfo to be serialised.</param>
         /// <returns>List of serialised bytes.</returns>
-        public async Task<List<byte>> SerialiseAsync(MDataInfo mDataInfo)
+        public async Task<byte[]> SerialiseAsync(MDataInfo mDataInfo)
         {
             var byteArray = await AppBindings.MDataInfoSerialiseAsync(ref mDataInfo);
-            return new List<byte>(byteArray);
+            return byteArray;
         }
     }
 }

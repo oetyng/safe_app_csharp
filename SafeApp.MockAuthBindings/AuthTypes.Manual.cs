@@ -50,7 +50,7 @@ namespace SafeApp.MockAuthBindings
         /// <summary>
         /// Extra arbitrary data.
         /// </summary>
-        public List<byte> ExtraData;
+        public byte[] ExtraData;
 
         /// <summary>
         /// Request Id.

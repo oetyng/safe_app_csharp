@@ -96,7 +96,7 @@ namespace SafeApp.Core
         /// </summary>
         /// <param name="input">byte list to be converted.</param>
         /// <returns>new utf-8 string.</returns>
-        public static string ToUtfString(this List<byte> input)
+        public static string ToUtfString(this byte[] input)
         {
             var ba = input.ToArray();
             return Encoding.UTF8.GetString(ba, 0, ba.Length);
@@ -107,10 +107,10 @@ namespace SafeApp.Core
         /// </summary>
         /// <param name="input">string to be converted.</param>
         /// <returns>a byte list</returns>
-        public static List<byte> ToUtfBytes(this string input)
+        public static byte[] ToUtfBytes(this string input)
         {
             var byteArray = Encoding.UTF8.GetBytes(input);
-            return byteArray.ToList();
+            return byteArray;
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace SafeApp.Core
         /// </summary>
         /// <param name="byteList">byte list.</param>
         /// <returns>new String.</returns>
-        public static string ToHexString(this List<byte> byteList)
+        public static string ToHexString(this byte[] byteList)
         {
             var ba = byteList.ToArray();
             var hex = BitConverter.ToString(ba);
@@ -130,7 +130,7 @@ namespace SafeApp.Core
         /// </summary>
         /// <param name="hex">String to be converted.</param>
         /// <returns>List of bytes in hexadecimal format.</returns>
-        public static List<byte> ToHexBytes(this string hex)
+        public static byte[] ToHexBytes(this string hex)
         {
             var numberChars = hex.Length;
             var bytes = new byte[numberChars / 2];
@@ -139,7 +139,7 @@ namespace SafeApp.Core
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
             }
 
-            return bytes.ToList();
+            return bytes;
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace SafeApp.Core
         /// </summary>
         /// <param name="bytes">byte list to be converted.</param>
         /// <returns>new String containing byte array.</returns>
-        public static string PrintByteArray(List<byte> bytes)
+        public static string PrintByteArray(byte[] bytes)
         {
             var sb = new StringBuilder("new byte[] { ");
             foreach (var b in bytes)

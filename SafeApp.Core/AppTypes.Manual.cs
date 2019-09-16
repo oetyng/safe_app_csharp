@@ -55,7 +55,7 @@ namespace SafeApp.Core
         /// <summary>
         /// Serialised configuration.
         /// </summary>
-        public List<byte> SerialisedCfg;
+        public byte[] SerialisedCfg;
 
         /// <summary>
         /// Initialise IPC response message.

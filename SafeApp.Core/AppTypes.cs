@@ -492,7 +492,7 @@ namespace SafeApp.Core
         /// <summary>
         /// Bootstrap configuration.
         /// </summary>
-        public List<byte> BootstrapConfig;
+        public byte[] BootstrapConfig;
 
         /// <summary>
         /// Initialise a new auth response object from native auth response.
@@ -518,7 +518,7 @@ namespace SafeApp.Core
                 AccessContainerInfo = AccessContainerInfo,
                 AccessContainerEntry = AccessContainerEntry.ToNative(),
                 BootstrapConfigPtr = BindingUtils.CopyFromByteList(BootstrapConfig),
-                BootstrapConfigLen = (UIntPtr)(BootstrapConfig?.Count ?? 0),
+                BootstrapConfigLen = (UIntPtr)(BootstrapConfig?.Length ?? 0),
                 BootstrapConfigCap = UIntPtr.Zero
             };
         }
@@ -795,7 +795,7 @@ namespace SafeApp.Core
         /// <summary>
         /// Key value in byte array format.
         /// </summary>
-        public List<byte> Key;
+        public byte[] Key;
 
         /// <summary>
         /// Initialise new Mutable Data key from native key.
@@ -812,7 +812,7 @@ namespace SafeApp.Core
         /// <returns></returns>
         internal MDataKeyNative ToNative()
         {
-            return new MDataKeyNative { KeyPtr = BindingUtils.CopyFromByteList(Key), KeyLen = (UIntPtr)(Key?.Count ?? 0) };
+            return new MDataKeyNative { KeyPtr = BindingUtils.CopyFromByteList(Key), KeyLen = (UIntPtr)(Key?.Length ?? 0) };
         }
     }
 
@@ -849,7 +849,7 @@ namespace SafeApp.Core
         /// <summary>
         /// Value content in byte list format.
         /// </summary>
-        public List<byte> Content;
+        public byte[] Content;
 
         /// <summary>
         /// Entry version.
@@ -875,7 +875,7 @@ namespace SafeApp.Core
             return new MDataValueNative
             {
                 ContentPtr = BindingUtils.CopyFromByteList(Content),
-                ContentLen = (UIntPtr)(Content?.Count ?? 0),
+                ContentLen = (UIntPtr)(Content?.Length ?? 0),
                 EntryVersion = EntryVersion
             };
         }
@@ -1006,7 +1006,7 @@ namespace SafeApp.Core
         /// <summary>
         /// Pointer to user metadata.
         /// </summary>
-        public List<byte> UserMetadata;
+        public byte[] UserMetadata;
 
         /// <summary>
         /// Name of ImmutableData containing the content of the file.
@@ -1042,7 +1042,7 @@ namespace SafeApp.Core
                 ModifiedSec = ModifiedSec,
                 ModifiedNsec = ModifiedNsec,
                 UserMetadataPtr = BindingUtils.CopyFromByteList(UserMetadata),
-                UserMetadataLen = (UIntPtr)(UserMetadata?.Count ?? 0),
+                UserMetadataLen = (UIntPtr)(UserMetadata?.Length ?? 0),
                 UserMetadataCap = UIntPtr.Zero,
                 DataMapName = DataMapName
             };

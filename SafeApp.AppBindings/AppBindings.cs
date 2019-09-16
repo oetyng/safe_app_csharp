@@ -383,10 +383,10 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "enc_secret_key_free")]
         private static extern void EncSecretKeyFreeNative(IntPtr app, ulong handle, IntPtr userData, FfiResultCb oCb);
 
-        public Task<List<byte>> SignAsync(IntPtr app, List<byte> data, ulong signSkH)
+        public Task<byte[]> SignAsync(IntPtr app, byte[] data, ulong signSkH)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
-            SignNative(app, data?.ToArray(), (UIntPtr)(data?.Count ?? 0), signSkH, userData, DelegateOnFfiResultByteListCb);
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
+            SignNative(app, data?.ToArray(), (UIntPtr)(data?.Length ?? 0), signSkH, userData, DelegateOnFfiResultByteListCb);
             return ret;
         }
 
@@ -400,10 +400,10 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultByteListCb oCb);
 
-        public Task<List<byte>> VerifyAsync(IntPtr app, List<byte> signedData, ulong signPkH)
+        public Task<byte[]> VerifyAsync(IntPtr app, byte[] signedData, ulong signPkH)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
-            VerifyNative(app, signedData?.ToArray(), (UIntPtr)(signedData?.Count ?? 0), signPkH, userData, DelegateOnFfiResultByteListCb);
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
+            VerifyNative(app, signedData?.ToArray(), (UIntPtr)(signedData?.Length ?? 0), signPkH, userData, DelegateOnFfiResultByteListCb);
             return ret;
         }
 
@@ -417,13 +417,13 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultByteListCb oCb);
 
-        public Task<List<byte>> EncryptAsync(IntPtr app, List<byte> data, ulong publicKeyH, ulong secretKeyH)
+        public Task<byte[]> EncryptAsync(IntPtr app, byte[] data, ulong publicKeyH, ulong secretKeyH)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
             EncryptNative(
                 app,
                 data?.ToArray(),
-                (UIntPtr)(data?.Count ?? 0),
+                (UIntPtr)(data?.Length ?? 0),
                 publicKeyH,
                 secretKeyH,
                 userData,
@@ -442,13 +442,13 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultByteListCb oCb);
 
-        public Task<List<byte>> DecryptAsync(IntPtr app, List<byte> data, ulong publicKeyH, ulong secretKeyH)
+        public Task<byte[]> DecryptAsync(IntPtr app, byte[] data, ulong publicKeyH, ulong secretKeyH)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
             DecryptNative(
                 app,
                 data?.ToArray(),
-                (UIntPtr)(data?.Count ?? 0),
+                (UIntPtr)(data?.Length ?? 0),
                 publicKeyH,
                 secretKeyH,
                 userData,
@@ -467,10 +467,10 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultByteListCb oCb);
 
-        public Task<List<byte>> EncryptSealedBoxAsync(IntPtr app, List<byte> data, ulong publicKeyH)
+        public Task<byte[]> EncryptSealedBoxAsync(IntPtr app, byte[] data, ulong publicKeyH)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
-            EncryptSealedBoxNative(app, data?.ToArray(), (UIntPtr)(data?.Count ?? 0), publicKeyH, userData, DelegateOnFfiResultByteListCb);
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
+            EncryptSealedBoxNative(app, data?.ToArray(), (UIntPtr)(data?.Length ?? 0), publicKeyH, userData, DelegateOnFfiResultByteListCb);
             return ret;
         }
 
@@ -484,13 +484,13 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultByteListCb oCb);
 
-        public Task<List<byte>> DecryptSealedBoxAsync(IntPtr app, List<byte> data, ulong publicKeyH, ulong secretKeyH)
+        public Task<byte[]> DecryptSealedBoxAsync(IntPtr app, byte[] data, ulong publicKeyH, ulong secretKeyH)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
             DecryptSealedBoxNative(
                 app,
                 data?.ToArray(),
-                (UIntPtr)(data?.Count ?? 0),
+                (UIntPtr)(data?.Length ?? 0),
                 publicKeyH,
                 secretKeyH,
                 userData,
@@ -509,10 +509,10 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultByteListCb oCb);
 
-        public Task<List<byte>> Sha3HashAsync(List<byte> data)
+        public Task<byte[]> Sha3HashAsync(byte[] data)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
-            Sha3HashNative(data?.ToArray(), (UIntPtr)(data?.Count ?? 0), userData, DelegateOnFfiResultByteListCb);
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
+            Sha3HashNative(data?.ToArray(), (UIntPtr)(data?.Length ?? 0), userData, DelegateOnFfiResultByteListCb);
             return ret;
         }
 
@@ -544,10 +544,10 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "idata_new_self_encryptor")]
         private static extern void IDataNewSelfEncryptorNative(IntPtr app, IntPtr userData, FfiResultULongCb oCb);
 
-        public Task IDataWriteToSelfEncryptorAsync(IntPtr app, ulong seH, List<byte> data)
+        public Task IDataWriteToSelfEncryptorAsync(IntPtr app, ulong seH, byte[] data)
         {
             var (ret, userData) = BindingUtils.PrepareTask();
-            IDataWriteToSelfEncryptorNative(app, seH, data?.ToArray(), (UIntPtr)(data?.Count ?? 0), userData, DelegateOnFfiResultCb);
+            IDataWriteToSelfEncryptorNative(app, seH, data?.ToArray(), (UIntPtr)(data?.Length ?? 0), userData, DelegateOnFfiResultCb);
             return ret;
         }
 
@@ -616,9 +616,9 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "idata_size")]
         private static extern void IDataSizeNative(IntPtr app, ulong seH, IntPtr userData, FfiResultULongCb oCb);
 
-        public Task<List<byte>> IDataReadFromSelfEncryptorAsync(IntPtr app, ulong seH, ulong fromPos, ulong len)
+        public Task<byte[]> IDataReadFromSelfEncryptorAsync(IntPtr app, ulong seH, ulong fromPos, ulong len)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
             IDataReadFromSelfEncryptorNative(app, seH, fromPos, len, userData, DelegateOnFfiResultByteListCb);
             return ret;
         }
@@ -676,10 +676,10 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "encode_containers_req")]
         private static extern void EncodeContainersReqNative(ref ContainersReqNative req, IntPtr userData, FfiResultUIntStringCb oCb);
 
-        public Task<(uint, string)> EncodeUnregisteredReqAsync(List<byte> extraData)
+        public Task<(uint, string)> EncodeUnregisteredReqAsync(byte[] extraData)
         {
             var (ret, userData) = BindingUtils.PrepareTask<(uint, string)>();
-            EncodeUnregisteredReqNative(extraData?.ToArray(), (UIntPtr)(extraData?.Count ?? 0), userData, DelegateOnFfiResultUIntStringCb);
+            EncodeUnregisteredReqNative(extraData?.ToArray(), (UIntPtr)(extraData?.Length ?? 0), userData, DelegateOnFfiResultUIntStringCb);
             return ret;
         }
 
@@ -779,13 +779,13 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "mdata_info_random_private")]
         private static extern void MDataInfoRandomPrivateNative(ulong typeTag, IntPtr userData, FfiResultMDataInfoCb oCb);
 
-        public Task<List<byte>> MDataInfoEncryptEntryKeyAsync(ref MDataInfo info, List<byte> input)
+        public Task<byte[]> MDataInfoEncryptEntryKeyAsync(ref MDataInfo info, byte[] input)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
             MDataInfoEncryptEntryKeyNative(
                 ref info,
                 input?.ToArray(),
-                (UIntPtr)(input?.Count ?? 0),
+                (UIntPtr)(input?.Length ?? 0),
                 userData,
                 DelegateOnFfiResultByteListCb);
             return ret;
@@ -800,13 +800,13 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultByteListCb oCb);
 
-        public Task<List<byte>> MDataInfoEncryptEntryValueAsync(ref MDataInfo info, List<byte> input)
+        public Task<byte[]> MDataInfoEncryptEntryValueAsync(ref MDataInfo info, byte[] input)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
             MDataInfoEncryptEntryValueNative(
                 ref info,
                 input?.ToArray(),
-                (UIntPtr)(input?.Count ?? 0),
+                (UIntPtr)(input?.Length ?? 0),
                 userData,
                 DelegateOnFfiResultByteListCb);
             return ret;
@@ -821,10 +821,10 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultByteListCb oCb);
 
-        public Task<List<byte>> MDataInfoDecryptAsync(ref MDataInfo info, List<byte> input)
+        public Task<byte[]> MDataInfoDecryptAsync(ref MDataInfo info, byte[] input)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
-            MDataInfoDecryptNative(ref info, input?.ToArray(), (UIntPtr)(input?.Count ?? 0), userData, DelegateOnFfiResultByteListCb);
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
+            MDataInfoDecryptNative(ref info, input?.ToArray(), (UIntPtr)(input?.Length ?? 0), userData, DelegateOnFfiResultByteListCb);
             return ret;
         }
 
@@ -837,9 +837,9 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultByteListCb oCb);
 
-        public Task<List<byte>> MDataInfoSerialiseAsync(ref MDataInfo info)
+        public Task<byte[]> MDataInfoSerialiseAsync(ref MDataInfo info)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
             MDataInfoSerialiseNative(ref info, userData, DelegateOnFfiResultByteListCb);
             return ret;
         }
@@ -847,10 +847,10 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "mdata_info_serialise")]
         private static extern void MDataInfoSerialiseNative(ref MDataInfo info, IntPtr userData, FfiResultByteListCb oCb);
 
-        public Task<MDataInfo> MDataInfoDeserialiseAsync(List<byte> encoded)
+        public Task<MDataInfo> MDataInfoDeserialiseAsync(byte[] encoded)
         {
             var (ret, userData) = BindingUtils.PrepareTask<MDataInfo>();
-            MDataInfoDeserialiseNative(encoded?.ToArray(), (UIntPtr)(encoded?.Count ?? 0), userData, DelegateOnFfiResultMDataInfoCb);
+            MDataInfoDeserialiseNative(encoded?.ToArray(), (UIntPtr)(encoded?.Length ?? 0), userData, DelegateOnFfiResultMDataInfoCb);
             return ret;
         }
 
@@ -898,10 +898,10 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "mdata_serialised_size")]
         private static extern void MDataSerialisedSizeNative(IntPtr app, ref MDataInfo info, IntPtr userData, FfiResultULongCb oCb);
 
-        public Task<(List<byte>, ulong)> MDataGetValueAsync(IntPtr app, ref MDataInfo info, List<byte> key)
+        public Task<(byte[], ulong)> MDataGetValueAsync(IntPtr app, ref MDataInfo info, byte[] key)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<(List<byte>, ulong)>();
-            MDataGetValueNative(app, ref info, key?.ToArray(), (UIntPtr)(key?.Count ?? 0), userData, DelegateOnFfiResultByteListULongCb);
+            var (ret, userData) = BindingUtils.PrepareTask<(byte[], ulong)>();
+            MDataGetValueNative(app, ref info, key?.ToArray(), (UIntPtr)(key?.Length ?? 0), userData, DelegateOnFfiResultByteListULongCb);
             return ret;
         }
 
@@ -1033,16 +1033,16 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "mdata_entries_new")]
         private static extern void MDataEntriesNewNative(IntPtr app, IntPtr userData, FfiResultULongCb oCb);
 
-        public Task MDataEntriesInsertAsync(IntPtr app, ulong entriesH, List<byte> key, List<byte> value)
+        public Task MDataEntriesInsertAsync(IntPtr app, ulong entriesH, byte[] key, byte[] value)
         {
             var (ret, userData) = BindingUtils.PrepareTask();
             MDataEntriesInsertNative(
                 app,
                 entriesH,
                 key?.ToArray(),
-                (UIntPtr)(key?.Count ?? 0),
+                (UIntPtr)(key?.Length ?? 0),
                 value?.ToArray(),
-                (UIntPtr)(value?.Count ?? 0),
+                (UIntPtr)(value?.Length ?? 0),
                 userData,
                 DelegateOnFfiResultCb);
             return ret;
@@ -1071,10 +1071,10 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "mdata_entries_len")]
         private static extern void MDataEntriesLenNative(IntPtr app, ulong entriesH, IntPtr userData, FfiResultULongFromUIntPtrCb oCb);
 
-        public Task<(List<byte>, ulong)> MDataEntriesGetAsync(IntPtr app, ulong entriesH, List<byte> key)
+        public Task<(byte[], ulong)> MDataEntriesGetAsync(IntPtr app, ulong entriesH, byte[] key)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<(List<byte>, ulong)>();
-            MDataEntriesGetNative(app, entriesH, key?.ToArray(), (UIntPtr)(key?.Count ?? 0), userData, DelegateOnFfiResultByteListULongCb);
+            var (ret, userData) = BindingUtils.PrepareTask<(byte[], ulong)>();
+            MDataEntriesGetNative(app, entriesH, key?.ToArray(), (UIntPtr)(key?.Length ?? 0), userData, DelegateOnFfiResultByteListULongCb);
             return ret;
         }
 
@@ -1118,16 +1118,16 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "mdata_entry_actions_new")]
         private static extern void MDataEntryActionsNewNative(IntPtr app, IntPtr userData, FfiResultULongCb oCb);
 
-        public Task MDataEntryActionsInsertAsync(IntPtr app, ulong actionsH, List<byte> key, List<byte> value)
+        public Task MDataEntryActionsInsertAsync(IntPtr app, ulong actionsH, byte[] key, byte[] value)
         {
             var (ret, userData) = BindingUtils.PrepareTask();
             MDataEntryActionsInsertNative(
                 app,
                 actionsH,
                 key?.ToArray(),
-                (UIntPtr)(key?.Count ?? 0),
+                (UIntPtr)(key?.Length ?? 0),
                 value?.ToArray(),
-                (UIntPtr)(value?.Count ?? 0),
+                (UIntPtr)(value?.Length ?? 0),
                 userData,
                 DelegateOnFfiResultCb);
             return ret;
@@ -1146,16 +1146,16 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultCb oCb);
 
-        public Task MDataEntryActionsUpdateAsync(IntPtr app, ulong actionsH, List<byte> key, List<byte> value, ulong entryVersion)
+        public Task MDataEntryActionsUpdateAsync(IntPtr app, ulong actionsH, byte[] key, byte[] value, ulong entryVersion)
         {
             var (ret, userData) = BindingUtils.PrepareTask();
             MDataEntryActionsUpdateNative(
                 app,
                 actionsH,
                 key?.ToArray(),
-                (UIntPtr)(key?.Count ?? 0),
+                (UIntPtr)(key?.Length ?? 0),
                 value?.ToArray(),
-                (UIntPtr)(value?.Count ?? 0),
+                (UIntPtr)(value?.Length ?? 0),
                 entryVersion,
                 userData,
                 DelegateOnFfiResultCb);
@@ -1176,14 +1176,14 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultCb oCb);
 
-        public Task MDataEntryActionsDeleteAsync(IntPtr app, ulong actionsH, List<byte> key, ulong entryVersion)
+        public Task MDataEntryActionsDeleteAsync(IntPtr app, ulong actionsH, byte[] key, ulong entryVersion)
         {
             var (ret, userData) = BindingUtils.PrepareTask();
             MDataEntryActionsDeleteNative(
                 app,
                 actionsH,
                 key?.ToArray(),
-                (UIntPtr)(key?.Count ?? 0),
+                (UIntPtr)(key?.Length ?? 0),
                 entryVersion,
                 userData,
                 DelegateOnFfiResultCb);
@@ -1211,9 +1211,9 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "mdata_entry_actions_free")]
         private static extern void MDataEntryActionsFreeNative(IntPtr app, ulong actionsH, IntPtr userData, FfiResultCb oCb);
 
-        public Task<List<byte>> MDataEncodeMetadataAsync(ref MetadataResponse metadata)
+        public Task<byte[]> MDataEncodeMetadataAsync(ref MetadataResponse metadata)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
             MDataEncodeMetadataNative(ref metadata, userData, DelegateOnFfiResultByteListCb);
             return ret;
         }
@@ -1396,9 +1396,9 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "file_size")]
         private static extern void FileSizeNative(IntPtr app, ulong fileH, IntPtr userData, FfiResultULongCb oCb);
 
-        public Task<List<byte>> FileReadAsync(IntPtr app, ulong fileH, ulong position, ulong len)
+        public Task<byte[]> FileReadAsync(IntPtr app, ulong fileH, ulong position, ulong len)
         {
-            var (ret, userData) = BindingUtils.PrepareTask<List<byte>>();
+            var (ret, userData) = BindingUtils.PrepareTask<byte[]>();
             FileReadNative(app, fileH, position, len, userData, DelegateOnFfiResultByteListCb);
             return ret;
         }
@@ -1412,10 +1412,10 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultByteListCb oCb);
 
-        public Task FileWriteAsync(IntPtr app, ulong fileH, List<byte> data)
+        public Task FileWriteAsync(IntPtr app, ulong fileH, byte[] data)
         {
             var (ret, userData) = BindingUtils.PrepareTask();
-            FileWriteNative(app, fileH, data?.ToArray(), (UIntPtr)(data?.Count ?? 0), userData, DelegateOnFfiResultCb);
+            FileWriteNative(app, fileH, data?.ToArray(), (UIntPtr)(data?.Length ?? 0), userData, DelegateOnFfiResultCb);
             return ret;
         }
 

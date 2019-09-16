@@ -34,7 +34,7 @@ namespace SafeApp.MData
         /// <param name="entKey">Corresponding entry key to remove.</param>
         /// <param name="version">The version successor, to handle the concurrency issue.</param>
         /// <returns></returns>
-        public Task DeleteAsync(NativeHandle entryActionsH, List<byte> entKey, ulong version)
+        public Task DeleteAsync(NativeHandle entryActionsH, byte[] entKey, ulong version)
         {
             return AppBindings.MDataEntryActionsDeleteAsync(_appPtr, entryActionsH, entKey, version);
         }
@@ -51,7 +51,7 @@ namespace SafeApp.MData
         /// <param name="entKey">The key to be inserted.</param>
         /// <param name="entVal">The value to be inserted.</param>
         /// <returns></returns>
-        public Task InsertAsync(NativeHandle entryActionsH, List<byte> entKey, List<byte> entVal)
+        public Task InsertAsync(NativeHandle entryActionsH, byte[] entKey, byte[] entVal)
         {
             return AppBindings.MDataEntryActionsInsertAsync(_appPtr, entryActionsH, entKey, entVal);
         }
@@ -74,7 +74,7 @@ namespace SafeApp.MData
         /// <param name="entVal">New value.</param>
         /// <param name="version">The version successor, to handle the concurrency issue.</param>
         /// <returns></returns>
-        public Task UpdateAsync(NativeHandle entryActionsH, List<byte> entKey, List<byte> entVal, ulong version)
+        public Task UpdateAsync(NativeHandle entryActionsH, byte[] entKey, byte[] entVal, ulong version)
         {
             return AppBindings.MDataEntryActionsUpdateAsync(_appPtr, entryActionsH, entKey, entVal, version);
         }
