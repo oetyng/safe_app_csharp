@@ -14,7 +14,7 @@ namespace SafeApp.IData
     public class IData
     {
         private static readonly IAppBindings AppBindings = AppResolver.Current;
-        private SafeAppPtr _appPtr;
+        private readonly SafeAppPtr _appPtr;
 
         /// <summary>
         /// Initializes an IData object for the Session instance.

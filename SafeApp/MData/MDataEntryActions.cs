@@ -14,7 +14,7 @@ namespace SafeApp.MData
     public class MDataEntryActions
     {
         private static readonly IAppBindings AppBindings = AppResolver.Current;
-        private SafeAppPtr _appPtr;
+        private readonly SafeAppPtr _appPtr;
 
         /// <summary>
         /// Initialises an MDataEntryAction object for the Session instance.

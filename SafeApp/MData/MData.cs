@@ -15,7 +15,7 @@ namespace SafeApp.MData
     public class MData
     {
         private static readonly IAppBindings AppBindings = AppResolver.Current;
-        private SafeAppPtr _appPtr;
+        private readonly SafeAppPtr _appPtr;
 
         /// <summary>
         /// Initialises an MData object for the Session instance.

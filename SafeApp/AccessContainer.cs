@@ -14,7 +14,7 @@ namespace SafeApp
     public class AccessContainer
     {
         private static readonly IAppBindings AppBindings = AppResolver.Current;
-        private SafeAppPtr _appPtr;
+        private readonly SafeAppPtr _appPtr;
 
         /// <summary>
         /// Initializes the accesscontainer instance.
