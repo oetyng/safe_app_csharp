@@ -29,16 +29,12 @@ namespace SafeApp.AppBindings
 
 #if !NETSTANDARD
         private static IAppBindings CreateBindings()
-        {
-            return new AppBindings();
-        }
+            => new AppBindings();
 #endif
 
         private static Exception NotImplementedInReferenceAssembly()
-        {
-            return new NotImplementedException(
+            => new NotImplementedException(
               "This functionality is not implemented in the portable version of this assembly.  You should reference the NuGet package from your main application project in order to reference the platform-specific implementation.");
-        }
     }
 }
 #pragma warning restore 1591

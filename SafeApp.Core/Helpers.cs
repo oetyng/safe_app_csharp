@@ -52,9 +52,7 @@ namespace SafeApp.Core
         /// <param name="obj">Object to allocate.</param>
         /// <returns>An IntPtr object representing a GChandle object.</returns>
         public static IntPtr ToHandlePtr(this object obj)
-        {
-            return GCHandle.ToIntPtr(GCHandle.Alloc(obj));
-        }
+            => GCHandle.ToIntPtr(GCHandle.Alloc(obj));
 
         /// <summary>
         /// Allocate the object into unmanaged memory and
@@ -84,23 +82,18 @@ namespace SafeApp.Core
         /// <param name="length">Length</param>
         /// <returns>list of objects.</returns>
         public static List<T> ToList<T>(this IntPtr ptr, IntPtr length)
-        {
-            return Enumerable.Range(0, (int)length).Select(i => Marshal.PtrToStructure<T>(IntPtr.Add(ptr, Marshal.SizeOf<T>() * i))).
+            => Enumerable.Range(0, (int)length).Select(i => Marshal.PtrToStructure<T>(IntPtr.Add(ptr, Marshal.SizeOf<T>() * i))).
                 ToList();
-        }
 
         #region Encoding Extensions
 
         /// <summary>
-        /// Convert byte list into string.
+        /// Convert byte array into string.
         /// </summary>
-        /// <param name="input">byte list to be converted.</param>
+        /// <param name="input">byte array to be converted.</param>
         /// <returns>new utf-8 string.</returns>
         public static string ToUtfString(this byte[] input)
-        {
-            var ba = input.ToArray();
-            return Encoding.UTF8.GetString(ba, 0, ba.Length);
-        }
+            => Encoding.UTF8.GetString(input, 0, input.Length);
 
         /// <summary>
         /// Converts a string to utf-8 bytes.
@@ -108,20 +101,16 @@ namespace SafeApp.Core
         /// <param name="input">string to be converted.</param>
         /// <returns>a byte list</returns>
         public static byte[] ToUtfBytes(this string input)
-        {
-            var byteArray = Encoding.UTF8.GetBytes(input);
-            return byteArray;
-        }
+            => Encoding.UTF8.GetBytes(input);
 
         /// <summary>
         /// Convert byte list into string.
         /// </summary>
-        /// <param name="byteList">byte list.</param>
+        /// <param name="byteArray">byte list.</param>
         /// <returns>new String.</returns>
-        public static string ToHexString(this byte[] byteList)
+        public static string ToHexString(this byte[] byteArray)
         {
-            var ba = byteList.ToArray();
-            var hex = BitConverter.ToString(ba);
+            var hex = BitConverter.ToString(byteArray);
             return hex.Replace("-", string.Empty).ToLower();
         }
 

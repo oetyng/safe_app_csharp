@@ -24,19 +24,15 @@ namespace SafeApp.MockAuthBindings
         }
 
         private static IAuthBindings CreateBindings()
-        {
 #if NETSTANDARD1_2 && !__DESKTOP__
-      return null;
+      => null;
 #else
-            return new AuthBindings();
+            => new AuthBindings();
 #endif
-        }
 
         private static Exception NotImplementedInReferenceAssembly()
-        {
-            return new NotImplementedException(
+            => new NotImplementedException(
               "Please ensure you have SAFE_APP_MOCK defined in the application project as well. " +
               "You should also have a reference to the NuGet package from your main application project in order to reference the platform-specific implementation.");
-        }
     }
 }

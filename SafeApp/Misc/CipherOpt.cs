@@ -20,14 +20,10 @@ namespace SafeApp.Misc
         /// </summary>
         /// <param name="appPtr">SafeApp pointer</param>
         internal CipherOpt(SafeAppPtr appPtr)
-        {
-            _appPtr = appPtr;
-        }
+            => _appPtr = appPtr;
 
         private Task FreeAsync(ulong cipherOptHandle)
-        {
-            return AppBindings.CipherOptFreeAsync(_appPtr, cipherOptHandle);
-        }
+            => AppBindings.CipherOptFreeAsync(_appPtr, cipherOptHandle);
 
         /// <summary>
         /// Create a new Asymmetric CipherOpt handle.

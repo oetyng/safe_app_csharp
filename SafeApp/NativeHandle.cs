@@ -60,19 +60,14 @@ namespace SafeApp
         /// <summary>
         /// Class destructor
         /// </summary>
-        ~NativeHandle()
-        {
-            ReleaseUnmanagedResources();
-        }
+        ~NativeHandle() => ReleaseUnmanagedResources();
 
         /// <summary>
         /// Convert NativeHandle to ulong.
         /// </summary>
         /// <param name="obj">NativeHandle instance.</param>
         public static implicit operator ulong(NativeHandle obj)
-        {
-            return obj._handle;
-        }
+            => obj._handle;
 
         private void ReleaseUnmanagedResources()
         {

@@ -22,9 +22,7 @@ namespace SafeApp.MData
         /// </summary>
         /// <param name="appPtr">SafeApp pointer.</param>
         internal MDataEntries(SafeAppPtr appPtr)
-        {
-            _appPtr = appPtr;
-        }
+            => _appPtr = appPtr;
 
         /// <summary>
         /// Free the entries from memory.
@@ -32,9 +30,7 @@ namespace SafeApp.MData
         /// <param name="entriesH">Mutable Data entries handle.</param>
         /// <returns></returns>
         private Task FreeAsync(ulong entriesH)
-        {
-            return AppBindings.MDataEntriesFreeAsync(_appPtr, entriesH);
-        }
+            => AppBindings.MDataEntriesFreeAsync(_appPtr, entriesH);
 
         /// <summary>
         /// Get the value for the specified key.
@@ -43,9 +39,7 @@ namespace SafeApp.MData
         /// <param name="key">The key to lookup.</param>
         /// <returns>Value corresponding to the specified key and it's version.</returns>
         public Task<(byte[], ulong)> GetAsync(NativeHandle entriesHandle, byte[] key)
-        {
-            return AppBindings.MDataEntriesGetAsync(_appPtr, entriesHandle, key);
-        }
+            => AppBindings.MDataEntriesGetAsync(_appPtr, entriesHandle, key);
 
         /// <summary>
         /// Get a handle to the entries associated with Mutable Data.
@@ -68,9 +62,7 @@ namespace SafeApp.MData
         /// <param name="entVal">The value to be stored.</param>
         /// <returns></returns>
         public Task InsertAsync(NativeHandle entriesH, byte[] entKey, byte[] entVal)
-        {
-            return AppBindings.MDataEntriesInsertAsync(_appPtr, entriesH, entKey, entVal);
-        }
+            => AppBindings.MDataEntriesInsertAsync(_appPtr, entriesH, entKey, entVal);
 
         /// <summary>
         /// Get the total number of entries in the Mutable Data.
@@ -79,9 +71,7 @@ namespace SafeApp.MData
         /// <param name="entriesHandle">Handle to Mutable Data entries.</param>
         /// <returns>Number of Mutable Data entries.</returns>
         public Task<ulong> LenAsync(NativeHandle entriesHandle)
-        {
-            return AppBindings.MDataEntriesLenAsync(_appPtr, entriesHandle);
-        }
+            => AppBindings.MDataEntriesLenAsync(_appPtr, entriesHandle);
 
         /// <summary>
         /// Create a new entry handle to add entries in a MutableData.

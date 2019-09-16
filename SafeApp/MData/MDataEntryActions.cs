@@ -22,9 +22,7 @@ namespace SafeApp.MData
         /// </summary>
         /// <param name="appPtr">SafeApp pointer.</param>
         internal MDataEntryActions(SafeAppPtr appPtr)
-        {
-            _appPtr = appPtr;
-        }
+            => _appPtr = appPtr;
 
         /// <summary>
         /// Add a new Remove-Action in the transaction for removing an existing entry.
@@ -34,14 +32,10 @@ namespace SafeApp.MData
         /// <param name="version">The version successor, to handle the concurrency issue.</param>
         /// <returns></returns>
         public Task DeleteAsync(NativeHandle entryActionsH, byte[] entKey, ulong version)
-        {
-            return AppBindings.MDataEntryActionsDeleteAsync(_appPtr, entryActionsH, entKey, version);
-        }
+            => AppBindings.MDataEntryActionsDeleteAsync(_appPtr, entryActionsH, entKey, version);
 
         private Task FreeAsync(ulong entryActionsH)
-        {
-            return AppBindings.MDataEntryActionsFreeAsync(_appPtr, entryActionsH);
-        }
+            => AppBindings.MDataEntryActionsFreeAsync(_appPtr, entryActionsH);
 
         /// <summary>
         /// Add a new Insert-Action in the transaction for inserting a new entry.
@@ -51,9 +45,7 @@ namespace SafeApp.MData
         /// <param name="entVal">The value to be inserted.</param>
         /// <returns></returns>
         public Task InsertAsync(NativeHandle entryActionsH, byte[] entKey, byte[] entVal)
-        {
-            return AppBindings.MDataEntryActionsInsertAsync(_appPtr, entryActionsH, entKey, entVal);
-        }
+            => AppBindings.MDataEntryActionsInsertAsync(_appPtr, entryActionsH, entKey, entVal);
 
         /// <summary>
         /// Get a new handle to perform Mutable Data entry transaction actions.
@@ -74,8 +66,6 @@ namespace SafeApp.MData
         /// <param name="version">The version successor, to handle the concurrency issue.</param>
         /// <returns></returns>
         public Task UpdateAsync(NativeHandle entryActionsH, byte[] entKey, byte[] entVal, ulong version)
-        {
-            return AppBindings.MDataEntryActionsUpdateAsync(_appPtr, entryActionsH, entKey, entVal, version);
-        }
+            => AppBindings.MDataEntryActionsUpdateAsync(_appPtr, entryActionsH, entKey, entVal, version);
     }
 }

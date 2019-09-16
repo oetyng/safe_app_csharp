@@ -30,9 +30,7 @@ namespace SafeApp.MData
         /// <param name="cipherText">Data to be decrypted.</param>
         /// <returns>The decrypted key/value.</returns>
         public Task<byte[]> DecryptAsync(MDataInfo mDataInfo, byte[] cipherText)
-        {
-            return AppBindings.MDataInfoDecryptAsync(ref mDataInfo, cipherText);
-        }
+            => AppBindings.MDataInfoDecryptAsync(ref mDataInfo, cipherText);
 
         /// <summary>
         /// Create a new mdataInfo object from the Serialised data.
@@ -40,9 +38,7 @@ namespace SafeApp.MData
         /// <param name="serialisedData">Serialised value to create new mdataInfo object.</param>
         /// <returns>New mdataInfo instance.</returns>
         public Task<MDataInfo> DeserialiseAsync(byte[] serialisedData)
-        {
-            return AppBindings.MDataInfoDeserialiseAsync(serialisedData);
-        }
+            => AppBindings.MDataInfoDeserialiseAsync(serialisedData);
 
         /// <summary>
         /// Encrypt the data with the Mutable Data's encrypt key.
@@ -51,9 +47,7 @@ namespace SafeApp.MData
         /// <param name="inputBytes">The data to be encrypted.</param>
         /// <returns>The encrypted entry key.</returns>
         public Task<byte[]> EncryptEntryKeyAsync(MDataInfo mDataInfo, byte[] inputBytes)
-        {
-            return AppBindings.MDataInfoEncryptEntryKeyAsync(ref mDataInfo, inputBytes);
-        }
+            => AppBindings.MDataInfoEncryptEntryKeyAsync(ref mDataInfo, inputBytes);
 
         /// <summary>
         /// Encrypt the entry value provided as parameter with the Encryption Key
@@ -64,9 +58,7 @@ namespace SafeApp.MData
         /// <param name="inputBytes">The data to be encrypted.</param>
         /// <returns>The encrypted entry value.</returns>
         public Task<byte[]> EncryptEntryValueAsync(MDataInfo mDataInfo, byte[] inputBytes)
-        {
-            return AppBindings.MDataInfoEncryptEntryValueAsync(ref mDataInfo, inputBytes);
-        }
+            => AppBindings.MDataInfoEncryptEntryValueAsync(ref mDataInfo, inputBytes);
 
         /// <summary>
         /// Create a private Mutable Data at a specific XOR address.
@@ -77,9 +69,7 @@ namespace SafeApp.MData
         /// <param name="nonce">nonce</param>
         /// <returns>Newly created mdataInfo instance.</returns>
         public Task<MDataInfo> NewPrivateAsync(byte[] xorName, ulong typeTag, byte[] secEncKey, byte[] nonce)
-        {
-            return AppBindings.MDataInfoNewPrivateAsync(xorName, typeTag, secEncKey, nonce);
-        }
+            => AppBindings.MDataInfoNewPrivateAsync(xorName, typeTag, secEncKey, nonce);
 
         /// <summary>
         /// Create a private Mutable Data at a random address.
@@ -87,9 +77,7 @@ namespace SafeApp.MData
         /// <param name="typeTag">The typeTag to use.</param>
         /// <returns>Newly create mdataInfo.</returns>
         public Task<MDataInfo> RandomPrivateAsync(ulong typeTag)
-        {
-            return AppBindings.MDataInfoRandomPrivateAsync(typeTag);
-        }
+            => AppBindings.MDataInfoRandomPrivateAsync(typeTag);
 
         /// <summary>
         /// Create a new mdataInfo for Mutable Data at a random address with public access.
@@ -97,19 +85,14 @@ namespace SafeApp.MData
         /// <param name="typeTag">The typeTag to use.</param>
         /// <returns>Newly create mdataInfo.</returns>
         public Task<MDataInfo> RandomPublicAsync(ulong typeTag)
-        {
-            return AppBindings.MDataInfoRandomPublicAsync(typeTag);
-        }
+            => AppBindings.MDataInfoRandomPublicAsync(typeTag);
 
         /// <summary>
         /// Serialise the mdataInfo.
         /// </summary>
         /// <param name="mDataInfo">mdataInfo to be serialised.</param>
         /// <returns>List of serialised bytes.</returns>
-        public async Task<byte[]> SerialiseAsync(MDataInfo mDataInfo)
-        {
-            var byteArray = await AppBindings.MDataInfoSerialiseAsync(ref mDataInfo);
-            return byteArray;
-        }
+        public Task<byte[]> SerialiseAsync(MDataInfo mDataInfo)
+            => AppBindings.MDataInfoSerialiseAsync(ref mDataInfo);
     }
 }

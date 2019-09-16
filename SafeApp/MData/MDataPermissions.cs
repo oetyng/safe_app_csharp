@@ -24,14 +24,10 @@ namespace SafeApp.MData
         /// </summary>
         /// <param name="appPtr">SafeApp pointer.</param>
         internal MDataPermissions(SafeAppPtr appPtr)
-        {
-            _appPtr = appPtr;
-        }
+            => _appPtr = appPtr;
 
         private Task FreeAsync(ulong permissionsH)
-        {
-            return AppBindings.MDataPermissionsFreeAsync(_appPtr, permissionsH);
-        }
+            => AppBindings.MDataPermissionsFreeAsync(_appPtr, permissionsH);
 
         /// <summary>
         /// Get the permissions granted for a Public Sign Key.
@@ -40,9 +36,7 @@ namespace SafeApp.MData
         /// <param name="userPubSignKey">The key to lookup for.</param>
         /// <returns>The permission set for the key.</returns>
         public Task<PermissionSet> GetAsync(NativeHandle permissionsHandle, NativeHandle userPubSignKey)
-        {
-            return AppBindings.MDataPermissionsGetAsync(_appPtr, permissionsHandle, userPubSignKey);
-        }
+            => AppBindings.MDataPermissionsGetAsync(_appPtr, permissionsHandle, userPubSignKey);
 
         /// <summary>
         /// Insert a new permission set mapped to a specific Sign Key.
@@ -54,9 +48,7 @@ namespace SafeApp.MData
         /// <param name="permissionSet">The permission set to insert.</param>
         /// <returns></returns>
         public Task InsertAsync(NativeHandle permissionsH, NativeHandle forUserH, PermissionSet permissionSet)
-        {
-            return AppBindings.MDataPermissionsInsertAsync(_appPtr, permissionsH, forUserH, ref permissionSet);
-        }
+            => AppBindings.MDataPermissionsInsertAsync(_appPtr, permissionsH, forUserH, ref permissionSet);
 
         /// <summary>
         /// Total number of permission entries.
@@ -64,9 +56,7 @@ namespace SafeApp.MData
         /// <param name="permissionsHandle">Permission handle.</param>
         /// <returns>Number of permission entries.</returns>
         public Task<ulong> LenAsync(NativeHandle permissionsHandle)
-        {
-            return AppBindings.MDataPermissionsLenAsync(_appPtr, permissionsHandle);
-        }
+            => AppBindings.MDataPermissionsLenAsync(_appPtr, permissionsHandle);
 
         /// <summary>
         /// Returns the list of all associated permission sets.

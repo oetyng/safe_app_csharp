@@ -39,9 +39,7 @@ namespace SafeApp
 
 #if SAFE_APP_MOCK
         public IntPtr SafeApPtr()
-        {
-            return _appPtr;
-        }
+            => _appPtr;
 #endif
 
         /// <summary>
@@ -178,9 +176,7 @@ namespace SafeApp
         /// <param name="encodedResponse">Encoded response string.</param>
         /// <returns>New decoded IPCMsg instance.</returns>
         public static Task<IpcMsg> DecodeIpcMessageAsync(string encodedResponse)
-        {
-            return AppBindings.DecodeIpcMsgAsync(encodedResponse);
-        }
+            => AppBindings.DecodeIpcMsgAsync(encodedResponse);
 
         /// <summary>
         /// Encodes an authentication request.
@@ -188,9 +184,7 @@ namespace SafeApp
         /// <param name="authReq">Authentication Request.</param>
         /// <returns>RequestId, Encoded authentication request.</returns>
         public static Task<(uint, string)> EncodeAuthReqAsync(AuthReq authReq)
-        {
-            return AppBindings.EncodeAuthReqAsync(ref authReq);
-        }
+            => AppBindings.EncodeAuthReqAsync(ref authReq);
 
         /// <summary>
         /// Encodes a container permission request.
@@ -198,9 +192,7 @@ namespace SafeApp
         /// <param name="containersReq">Container Request</param>
         /// <returns>Request Id, Encoded container request.</returns>
         public static Task<(uint, string)> EncodeContainerRequestAsync(ContainersReq containersReq)
-        {
-            return AppBindings.EncodeContainersReqAsync(ref containersReq);
-        }
+            => AppBindings.EncodeContainersReqAsync(ref containersReq);
 
         /// <summary>
         /// Encodes a MDataShareReq.
@@ -208,9 +200,7 @@ namespace SafeApp
         /// <param name="shareMDataReq">Mutable Data share request.</param>
         /// <returns>Request Id, Encoded Mutable Data share request.</returns>
         public static Task<(uint, string)> EncodeShareMDataRequestAsync(ShareMDataReq shareMDataReq)
-        {
-            return AppBindings.EncodeShareMDataReqAsync(ref shareMDataReq);
-        }
+            => AppBindings.EncodeShareMDataReqAsync(ref shareMDataReq);
 
         /// <summary>
         /// Encodes a unregistered access request.
@@ -218,18 +208,14 @@ namespace SafeApp
         /// <param name="reqId">Request Id.</param>
         /// <returns></returns>
         public static Task<(uint, string)> EncodeUnregisteredRequestAsync(string reqId)
-        {
-            return AppBindings.EncodeUnregisteredReqAsync(Encoding.UTF8.GetBytes(reqId));
-        }
+            => AppBindings.EncodeUnregisteredReqAsync(Encoding.UTF8.GetBytes(reqId));
 
         /// <summary>
         /// Returns the expected name for the application executable without an extension.
         /// </summary>
         /// <returns>Application executable name.</returns>
         public static Task<string> GetExeFileStemAsync()
-        {
-            return AppBindings.AppExeFileStemAsync();
-        }
+            => AppBindings.AppExeFileStemAsync();
 
         /// <summary>
         /// Sets the additional path in `config_file_handler` to search configuration files.
@@ -237,9 +223,7 @@ namespace SafeApp
         /// <param name="path">Configuration file path.</param>
         /// <returns></returns>
         public static Task SetAdditionalSearchPathAsync(string path)
-        {
-            return AppBindings.AppSetAdditionalSearchPathAsync(path);
-        }
+            => AppBindings.AppSetAdditionalSearchPathAsync(path);
 
         /// <summary>
         /// Get the output log file path.
@@ -247,9 +231,7 @@ namespace SafeApp
         /// <param name="outputFileName">File name.</param>
         /// <returns>Log output file path along with file name.</returns>
         public static Task<string> GetLogOutputPathAsync([Optional] string outputFileName)
-        {
-            return AppBindings.AppOutputLogPathAsync(outputFileName);
-        }
+            => AppBindings.AppOutputLogPathAsync(outputFileName);
 
         /// <summary>
         /// Public implementation of Dispose pattern callable by developers.
@@ -266,17 +248,12 @@ namespace SafeApp
         /// <param name="appId">Application id.</param>
         /// <returns>Application's root container name.</returns>
         public Task<string> AppContainerNameAsync(string appId)
-        {
-            return AppBindings.AppContainerNameAsync(appId);
-        }
+            => AppBindings.AppContainerNameAsync(appId);
 
         /// <summary>
         /// Class destructor.
         /// </summary>
-        ~Session()
-        {
-            FreeApp();
-        }
+        ~Session() => FreeApp();
 
         private void FreeApp()
         {
@@ -299,9 +276,7 @@ namespace SafeApp
         /// </summary>
         /// <returns>AccountInfo object.</returns>
         public Task<AccountInfo> GetAccountInfoAsync()
-        {
-            return AppBindings.AppAccountInfoAsync(_appPtr);
-        }
+            => AppBindings.AppAccountInfoAsync(_appPtr);
 
         private void Init(IntPtr appPtr, GCHandle disconnectedHandle)
         {
@@ -327,19 +302,15 @@ namespace SafeApp
         /// </summary>
         /// <param name="outputLogFileName">Log output file name.</param>
         /// <returns></returns>
-        public static async Task InitLoggingAsync([Optional] string outputLogFileName)
-        {
-            await AppBindings.AppInitLoggingAsync(outputLogFileName);
-        }
+        public static Task InitLoggingAsync([Optional] string outputLogFileName)
+            => AppBindings.AppInitLoggingAsync(outputLogFileName);
 
         /// <summary>
         /// Check if the native library was compiled with mock-routing feature.
         /// </summary>
         /// <returns>True if native library was compiled with mock-routing feature otherwise false.</returns>
         public static bool IsMockBuild()
-        {
-            return AppBindings.IsMockBuild();
-        }
+            => AppBindings.IsMockBuild();
 
         private static void OnDisconnected(Session session)
         {
@@ -351,22 +322,18 @@ namespace SafeApp
         /// Invoked after Disconnect callback is fired to reconnect the session with the network.
         /// </summary>
         public Task ReconnectAsync()
-        {
-            return Task.Run(
+            => Task.Run(
                 async () =>
                 {
                     await AppBindings.AppReconnectAsync(_appPtr);
                     IsDisconnected = false;
                 });
-        }
 
         /// <summary>
         /// Resets the object cache for the session.
         /// </summary>
         /// <returns></returns>
         public Task ResetObjectCacheAsync()
-        {
-            return AppBindings.AppResetObjectCacheAsync(_appPtr);
-        }
+            => AppBindings.AppResetObjectCacheAsync(_appPtr);
     }
 }

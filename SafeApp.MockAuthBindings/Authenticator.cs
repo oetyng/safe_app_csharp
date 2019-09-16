@@ -38,18 +38,14 @@ namespace SafeApp.MockAuthBindings
         /// </summary>
         /// <returns>True if compiled with mock-routing feature otherwise false.</returns>
         public static bool IsMockBuild()
-        {
-            return NativeBindings.IsMockBuild();
-        }
+            => NativeBindings.IsMockBuild();
 
         /// <summary>
         /// Returns the expected name for the authenticator executable without an extension.
         /// </summary>
         /// <returns>Authenticator executable name.</returns>
         public static Task<string> AuthExeFileStemAsync()
-        {
-            return NativeBindings.AuthExeFileStemAsync();
-        }
+            => NativeBindings.AuthExeFileStemAsync();
 
         /// <summary>
         /// Creates the output log file in default config path.
@@ -58,9 +54,7 @@ namespace SafeApp.MockAuthBindings
         /// <param name="outputFileName">Log file name.</param>
         /// <returns>the path of where the safe_core log file is created.</returns>
         public static Task AuthInitLoggingAsync(string outputFileName)
-        {
-            return NativeBindings.AuthInitLoggingAsync(outputFileName);
-        }
+            => NativeBindings.AuthInitLoggingAsync(outputFileName);
 
         /// <summary>
         /// Generate the log path for the provided filename.
@@ -69,9 +63,7 @@ namespace SafeApp.MockAuthBindings
         /// <param name="outputFileName">Log file name.</param>
         /// <returns></returns>
         public static Task AuthOutputLogPathAsync(string outputFileName)
-        {
-            return NativeBindings.AuthOutputLogPathAsync(outputFileName);
-        }
+            => NativeBindings.AuthOutputLogPathAsync(outputFileName);
 
         /// <summary>
         /// Create new Account with a provided set of keys.
@@ -81,9 +73,7 @@ namespace SafeApp.MockAuthBindings
         /// <param name="invitation">Invitation token.</param>
         /// <returns>New Authenticator instance.</returns>
         public static Task<Authenticator> CreateAccountAsync(string locator, string secret, string invitation)
-        {
-            return Task.Run(
-              () =>
+            => Task.Run(() =>
               {
                   var authenticator = new Authenticator();
                   var tcs = new TaskCompletionSource<Authenticator>(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -107,7 +97,6 @@ namespace SafeApp.MockAuthBindings
                   NativeBindings.CreateAccount(locator, secret, invitation, disconnect, cb);
                   return tcs.Task;
               });
-        }
 
         /// <summary>
         /// Decode the incoming unregistered client authentication message.
@@ -115,9 +104,7 @@ namespace SafeApp.MockAuthBindings
         /// <param name="msg">Message string.</param>
         /// <returns>New IpcReq object.</returns>
         public static Task<IpcReq> UnRegisteredDecodeIpcMsgAsync(string msg)
-        {
-            return NativeBindings.UnRegisteredDecodeIpcMsgAsync(msg);
-        }
+            => NativeBindings.UnRegisteredDecodeIpcMsgAsync(msg);
 
         /// <summary>
         /// Encode unregistered client authentication response.
@@ -126,9 +113,7 @@ namespace SafeApp.MockAuthBindings
         /// <param name="allow">Pass true to allow unregistered client authentication request. False to deny.</param>
         /// <returns>Encoded unregistered client authentication response string.</returns>
         public static Task<string> EncodeUnregisteredRespAsync(uint reqId, bool allow)
-        {
-            return NativeBindings.EncodeUnregisteredRespAsync(reqId, allow);
-        }
+            => NativeBindings.EncodeUnregisteredRespAsync(reqId, allow);
 
         /// <summary>
         /// Sets the additional path in `config_file_handler` to search configuration files.
@@ -136,18 +121,14 @@ namespace SafeApp.MockAuthBindings
         /// <param name="newPath">Configuration file path.</param>
         /// <returns></returns>
         public static Task AuthSetAdditionalSearchPathAsync(string newPath)
-        {
-            return NativeBindings.AuthSetAdditionalSearchPathAsync(newPath);
-        }
+            => NativeBindings.AuthSetAdditionalSearchPathAsync(newPath);
 
         /// <summary>
         /// Simulate a network Disconnect.
         /// </summary>
         /// <returns></returns>
-        public async Task SimulateNetworkDisconnectAsync()
-        {
-            await NativeBindings.TestSimulateNetworkDisconnectAsync(_authPtr);
-        }
+        public Task SimulateNetworkDisconnectAsync()
+            => NativeBindings.TestSimulateNetworkDisconnectAsync(_authPtr);
 
         private Authenticator()
         {
@@ -169,9 +150,7 @@ namespace SafeApp.MockAuthBindings
         /// </summary>
         /// <returns>New AccountInfo instance.</returns>
         public Task<AccountInfo> AuthAccountInfoAsync()
-        {
-            return NativeBindings.AuthAccountInfoAsync(_authPtr);
-        }
+            => NativeBindings.AuthAccountInfoAsync(_authPtr);
 
         /// <summary>
         /// Return a list of apps having access to an arbitrary Mutable Data object.
@@ -181,36 +160,28 @@ namespace SafeApp.MockAuthBindings
         /// <param name="typeTag">Mutable Data tagType.</param>
         /// <returns>List of Apps having access to Mutable Data.</returns>
         public Task<List<AppAccess>> AuthAppsAccessingMutableDataAsync(byte[] name, ulong typeTag)
-        {
-            return NativeBindings.AuthAppsAccessingMutableDataAsync(_authPtr, name, typeTag);
-        }
+            => NativeBindings.AuthAppsAccessingMutableDataAsync(_authPtr, name, typeTag);
 
         /// <summary>
         /// Flush the revocation queue and verify apps get revoked.
         /// </summary>
         /// <returns></returns>
         public Task AuthFlushAppRevocationQueueAsync()
-        {
-            return NativeBindings.AuthFlushAppRevocationQueueAsync(_authPtr);
-        }
+            => NativeBindings.AuthFlushAppRevocationQueueAsync(_authPtr);
 
         /// <summary>
         /// Try to restore a failed connection with the network.
         /// </summary>
         /// <returns></returns>
         public Task AuthReconnectAsync()
-        {
-            return NativeBindings.AuthReconnectAsync(_authPtr);
-        }
+            => NativeBindings.AuthReconnectAsync(_authPtr);
 
         /// <summary>
         /// Get the list of apps which was granted access by the user.
         /// </summary>
         /// <returns>List of registered apps.</returns>
         public Task<List<RegisteredApp>> AuthRegisteredAppsAsync()
-        {
-            return NativeBindings.AuthRegisteredAppsAsync(_authPtr);
-        }
+            => NativeBindings.AuthRegisteredAppsAsync(_authPtr);
 
         /// <summary>
         ///  Revoke app access.
@@ -218,18 +189,14 @@ namespace SafeApp.MockAuthBindings
         /// <param name="appId">App Id.</param>
         /// <returns></returns>
         public Task AuthRevokeAppAsync(string appId)
-        {
-            return NativeBindings.AuthRevokeAppAsync(_authPtr, appId);
-        }
+            => NativeBindings.AuthRevokeAppAsync(_authPtr, appId);
 
         /// <summary>
         /// Get the list of apps revoked from authenticator.
         /// </summary>
         /// <returns>List of revoked app's exchange info.</returns>
         public Task<List<AppExchangeInfo>> AuthRevokedAppsAsync()
-        {
-            return NativeBindings.AuthRevokedAppsAsync(_authPtr);
-        }
+            => NativeBindings.AuthRevokedAppsAsync(_authPtr);
 
         /// <summary>
         /// Removes a revoked app from the authenticator config.
@@ -237,9 +204,7 @@ namespace SafeApp.MockAuthBindings
         /// <param name="appId">App id.</param>
         /// <returns></returns>
         public Task AuthRmRevokedAppAsync(string appId)
-        {
-            return NativeBindings.AuthRmRevokedAppAsync(_authPtr, appId);
-        }
+            => NativeBindings.AuthRmRevokedAppAsync(_authPtr, appId);
 
         /// <summary>
         /// Decodes a given encoded IPC message.
@@ -247,9 +212,7 @@ namespace SafeApp.MockAuthBindings
         /// <param name="msg">Message string.</param>
         /// <returns>New IpcReq instance.</returns>
         public Task<IpcReq> DecodeIpcMessageAsync(string msg)
-        {
-            return NativeBindings.DecodeIpcMessage(_authPtr, msg);
-        }
+            => NativeBindings.DecodeIpcMessage(_authPtr, msg);
 
         /// <summary>
         /// Allow or deny an AuthIpcReq.
@@ -258,9 +221,7 @@ namespace SafeApp.MockAuthBindings
         /// <param name="allow">Pass true to accept the authentication request and false to deny.</param>
         /// <returns>Encoded AuthIpcResponse string.</returns>
         public Task<string> EncodeAuthRespAsync(AuthIpcReq authIpcReq, bool allow)
-        {
-            return NativeBindings.EncodeAuthRespAsync(_authPtr, ref authIpcReq.AuthReq, authIpcReq.ReqId, allow);
-        }
+            => NativeBindings.EncodeAuthRespAsync(_authPtr, ref authIpcReq.AuthReq, authIpcReq.ReqId, allow);
 
         /// <summary>
         /// Allow or deny ContainersIpcReq.
@@ -269,9 +230,7 @@ namespace SafeApp.MockAuthBindings
         /// <param name="allow">Pass true to accept the Container request and false to deny.</param>
         /// <returns>Encoded Containers permissions Response.</returns>
         public Task<string> EncodeContainersRespAsync(ContainersIpcReq req, bool allow)
-        {
-            return NativeBindings.EncodeContainersRespAsync(_authPtr, ref req.ContainersReq, req.ReqId, allow);
-        }
+            => NativeBindings.EncodeContainersRespAsync(_authPtr, ref req.ContainersReq, req.ReqId, allow);
 
         /// <summary>
         /// Allow or deny ShareMDataIpcReq.
@@ -280,17 +239,12 @@ namespace SafeApp.MockAuthBindings
         /// <param name="allow">Pass true to accept the ShareMData request and false to deny.</param>
         /// <returns>Encoded ShareMData response.</returns>
         public Task<string> EncodeShareMdataRespAsync(ShareMDataIpcReq req, bool allow)
-        {
-            return NativeBindings.EncodeShareMDataRespAsync(_authPtr, ref req.ShareMDataReq, req.ReqId, allow);
-        }
+            => NativeBindings.EncodeShareMDataRespAsync(_authPtr, ref req.ShareMDataReq, req.ReqId, allow);
 
         /// <summary>
         /// Class destructor.
         /// </summary>
-        ~Authenticator()
-        {
-            FreeAuth();
-        }
+        ~Authenticator() => FreeAuth();
 
         private void FreeAuth()
         {
@@ -322,9 +276,7 @@ namespace SafeApp.MockAuthBindings
         /// <param name="secret">Account secret/password.</param>
         /// <returns>New authenticator instance.</returns>
         public static Task<Authenticator> LoginAsync(string locator, string secret)
-        {
-            return Task.Run(
-              () =>
+            => Task.Run(() =>
               {
                   var authenticator = new Authenticator();
                   var tcs = new TaskCompletionSource<Authenticator>(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -348,7 +300,6 @@ namespace SafeApp.MockAuthBindings
                   NativeBindings.Login(locator, secret, disconnect, cb);
                   return tcs.Task;
               });
-        }
 
         private static void OnDisconnected(Authenticator authenticator)
         {

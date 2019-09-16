@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using SafeApp.AppBindings;
@@ -23,19 +22,14 @@ namespace SafeApp
         /// </summary>
         /// <param name="appPtr">SafeApp pointer.</param>
         internal AccessContainer(SafeAppPtr appPtr)
-        {
-            _appPtr = appPtr;
-        }
+            => _appPtr = appPtr;
 
         /// <summary>
         /// Get the list of container access permissions granted for the app.
         /// </summary>
         /// <returns>List of ContainerPermissions.</returns>
-        public async Task<List<ContainerPermissions>> AccessContainerFetchAsync()
-        {
-            var array = await AppBindings.AccessContainerFetchAsync(_appPtr);
-            return array.ToList();
-        }
+        public Task<List<ContainerPermissions>> AccessContainerFetchAsync()
+            => AppBindings.AccessContainerFetchAsync(_appPtr);
 
         /// <summary>
         /// Get the access information for a specific container.
@@ -44,9 +38,7 @@ namespace SafeApp
         /// <param name="containerId">Name of the container.</param>
         /// <returns>MDataInfo of access container's Mutable Data.</returns>
         public Task<MDataInfo> GetMDataInfoAsync(string containerId)
-        {
-            return AppBindings.AccessContainerGetContainerMDataInfoAsync(_appPtr, containerId);
-        }
+            => AppBindings.AccessContainerGetContainerMDataInfoAsync(_appPtr, containerId);
 
         /// <summary>
         /// Refresh the access permissions from the network.
@@ -54,8 +46,6 @@ namespace SafeApp
         /// </summary>
         /// <returns></returns>
         public Task RefreshAccessInfoAsync()
-        {
-            return AppBindings.AccessContainerRefreshAccessInfoAsync(_appPtr);
-        }
+            => AppBindings.AccessContainerRefreshAccessInfoAsync(_appPtr);
     }
 }

@@ -20,18 +20,14 @@ namespace SafeApp.Misc
         /// </summary>
         /// <param name="appPtr">SafeApp pointer</param>
         internal Crypto(SafeAppPtr appPtr)
-        {
-            _appPtr = appPtr;
-        }
+            => _appPtr = appPtr;
 
         /// <summary>
         /// Generate a nonce.
         /// </summary>
         /// <returns>Generated nonce.</returns>
         public static Task<byte[]> GenerateNonceAsync()
-        {
-            return AppBindings.GenerateNonceAsync();
-        }
+            => AppBindings.GenerateNonceAsync();
 
         /// <summary>
         /// Get SHA3 hash of the data.
@@ -39,9 +35,7 @@ namespace SafeApp.Misc
         /// <param name="source">Data to be hashed.</param>
         /// <returns>Generated hash.</returns>
         public static Task<byte[]> Sha3HashAsync(byte[] source)
-        {
-            return AppBindings.Sha3HashAsync(source);
-        }
+            => AppBindings.Sha3HashAsync(source);
 
         /// <summary>
         /// Get App's Public Sign Key.
@@ -71,9 +65,7 @@ namespace SafeApp.Misc
         /// <param name="encSecKey">Secret Encryption Key.</param>
         /// <returns>Decrypted data.</returns>
         public Task<byte[]> DecryptAsync(byte[] cipherText, NativeHandle encPubKey, NativeHandle encSecKey)
-        {
-            return AppBindings.DecryptAsync(_appPtr, cipherText, encPubKey, encSecKey);
-        }
+            => AppBindings.DecryptAsync(_appPtr, cipherText, encPubKey, encSecKey);
 
         /// <summary>
         /// Decrypt cipher text from a Sender.
@@ -83,9 +75,7 @@ namespace SafeApp.Misc
         /// <param name="skHandle">Receiver's Encrypt Secret Key.</param>
         /// <returns>Decrypted data.</returns>
         public Task<byte[]> DecryptSealedBoxAsync(byte[] cipherText, NativeHandle pkHandle, NativeHandle skHandle)
-        {
-            return AppBindings.DecryptSealedBoxAsync(_appPtr, cipherText, pkHandle, skHandle);
-        }
+            => AppBindings.DecryptSealedBoxAsync(_appPtr, cipherText, pkHandle, skHandle);
 
         /// <summary>
         /// Generate New Encrypt Key Pair.
@@ -104,9 +94,7 @@ namespace SafeApp.Misc
         /// <param name="encPubKeyH">Public Encryption Key handle.</param>
         /// <returns></returns>
         private Task EncPubKeyFreeAsync(ulong encPubKeyH)
-        {
-            return AppBindings.EncPubKeyFreeAsync(_appPtr, encPubKeyH);
-        }
+            => AppBindings.EncPubKeyFreeAsync(_appPtr, encPubKeyH);
 
         /// <summary>
         /// Generates raw string copy of public Encryption Key.
@@ -114,9 +102,7 @@ namespace SafeApp.Misc
         /// <param name="encPubKeyH"></param>
         /// <returns></returns>
         public Task<byte[]> EncPubKeyGetAsync(NativeHandle encPubKeyH)
-        {
-            return AppBindings.EncPubKeyGetAsync(_appPtr, encPubKeyH);
-        }
+            => AppBindings.EncPubKeyGetAsync(_appPtr, encPubKeyH);
 
         /// <summary>
         /// Get a PublicKey NativeHandle from raw bytes.
@@ -137,9 +123,7 @@ namespace SafeApp.Misc
         /// <param name="encSecKey">Secret Encryption Key.</param>
         /// <returns></returns>
         public Task<byte[]> EncryptAsync(byte[] data, NativeHandle encPubKey, NativeHandle encSecKey)
-        {
-            return AppBindings.EncryptAsync(_appPtr, data, encPubKey, encSecKey);
-        }
+            => AppBindings.EncryptAsync(_appPtr, data, encPubKey, encSecKey);
 
         /// <summary>
         /// Encrypt the input (buffer or string) using the private and public key with a seal
@@ -148,14 +132,10 @@ namespace SafeApp.Misc
         /// <param name="pkHandle"></param>
         /// <returns>Ciphered text in byte list format.</returns>
         public Task<byte[]> EncryptSealedBoxAsync(byte[] inputData, NativeHandle pkHandle)
-        {
-            return AppBindings.EncryptSealedBoxAsync(_appPtr, inputData, pkHandle);
-        }
+            => AppBindings.EncryptSealedBoxAsync(_appPtr, inputData, pkHandle);
 
         private Task EncSecretKeyFreeAsync(ulong encSecKeyH)
-        {
-            return AppBindings.EncSecretKeyFreeAsync(_appPtr, encSecKeyH);
-        }
+            => AppBindings.EncSecretKeyFreeAsync(_appPtr, encSecKeyH);
 
         /// <summary>
         /// Generate raw string copy of secret Encryption Key
@@ -163,9 +143,7 @@ namespace SafeApp.Misc
         /// <param name="encSecKeyH"></param>
         /// <returns></returns>
         public Task<byte[]> EncSecretKeyGetAsync(NativeHandle encSecKeyH)
-        {
-            return AppBindings.EncSecretKeyGetAsync(_appPtr, encSecKeyH);
-        }
+            => AppBindings.EncSecretKeyGetAsync(_appPtr, encSecKeyH);
 
         /// <summary>
         /// Interpret the secret Encryption Key from a given raw string.
@@ -185,9 +163,7 @@ namespace SafeApp.Misc
         /// <param name="signSecKey">Secret Sign Key to sign the given data.</param>
         /// <returns>Returns the signed data.</returns>
         public Task<byte[]> SignAsync(byte[] data, NativeHandle signSecKey)
-        {
-            return AppBindings.SignAsync(_appPtr, data, signSecKey);
-        }
+            => AppBindings.SignAsync(_appPtr, data, signSecKey);
 
         /// <summary>
         /// Generate a new Sign Key Pair
@@ -201,9 +177,7 @@ namespace SafeApp.Misc
         }
 
         private Task SignPubKeyFreeAsync(ulong pubSignKeyHandle)
-        {
-            return AppBindings.SignPubKeyFreeAsync(_appPtr, pubSignKeyHandle);
-        }
+            => AppBindings.SignPubKeyFreeAsync(_appPtr, pubSignKeyHandle);
 
         /// <summary>
         /// Get raw Sign Public Key
@@ -211,9 +185,7 @@ namespace SafeApp.Misc
         /// <param name="pubSignKey">Sign Public Key NativeHandle</param>
         /// <returns>Raw Sign Public Key as List</returns>
         public Task<byte[]> SignPubKeyGetAsync(NativeHandle pubSignKey)
-        {
-            return AppBindings.SignPubKeyGetAsync(_appPtr, pubSignKey);
-        }
+            => AppBindings.SignPubKeyGetAsync(_appPtr, pubSignKey);
 
         /// <summary>
         /// Get Sign Public Key Handle from a raw key
@@ -227,9 +199,7 @@ namespace SafeApp.Misc
         }
 
         private Task SignSecKeyFreeAsync(ulong secSignKeyHandle)
-        {
-            return AppBindings.SignSecKeyFreeAsync(_appPtr, secSignKeyHandle);
-        }
+            => AppBindings.SignSecKeyFreeAsync(_appPtr, secSignKeyHandle);
 
         /// <summary>
         /// Get Raw Secret Sign Key
@@ -237,9 +207,7 @@ namespace SafeApp.Misc
         /// <param name="secSignKey">Secret Sign Key NativeHandle</param>
         /// <returns>Raw Secret Sign Key as List</returns>
         public Task<byte[]> SignSecKeyGetAsync(NativeHandle secSignKey)
-        {
-            return AppBindings.SignSecKeyGetAsync(_appPtr, secSignKey);
-        }
+            => AppBindings.SignSecKeyGetAsync(_appPtr, secSignKey);
 
         /// <summary>
         /// Get New Sign Secret Key handle from a raw Sign Secret Key
@@ -259,8 +227,6 @@ namespace SafeApp.Misc
         /// <param name="signPubKey">Public Sign Key to verify.</param>
         /// <returns></returns>
         public Task<byte[]> VerifyAsync(byte[] signedData, NativeHandle signPubKey)
-        {
-            return AppBindings.VerifyAsync(_appPtr, signedData, signPubKey);
-        }
+            => AppBindings.VerifyAsync(_appPtr, signedData, signPubKey);
     }
 }

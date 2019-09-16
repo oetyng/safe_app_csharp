@@ -44,9 +44,7 @@ namespace SafeApp.Misc
         /// </summary>
         /// <param name="appPtr"></param>
         internal NFS(SafeAppPtr appPtr)
-        {
-            _appPtr = appPtr;
-        }
+            => _appPtr = appPtr;
 
         /// <summary>
         /// Delete a file from path.
@@ -57,9 +55,7 @@ namespace SafeApp.Misc
         /// <param name="version">The version successor, to handle the concurrency issue.</param>
         /// <returns>The version successor for the deleted file.</returns>
         public Task<ulong> DirDeleteFileAsync(MDataInfo mDataInfo, string fileName, ulong version)
-        {
-            return AppBindings.DirDeleteFileAsync(_appPtr, ref mDataInfo, fileName, version);
-        }
+            => AppBindings.DirDeleteFileAsync(_appPtr, ref mDataInfo, fileName, version);
 
         /// <summary>
         /// Get the file from the directory.
@@ -68,9 +64,7 @@ namespace SafeApp.Misc
         /// <param name="fileName">The path/file name.</param>
         /// <returns>The file found for the given path.</returns>
         public Task<(File, ulong)> DirFetchFileAsync(MDataInfo mDataInfo, string fileName)
-        {
-            return AppBindings.DirFetchFileAsync(_appPtr, ref mDataInfo, fileName);
-        }
+            => AppBindings.DirFetchFileAsync(_appPtr, ref mDataInfo, fileName);
 
         /// <summary>
         /// Insert the given file in the directory.
@@ -81,9 +75,7 @@ namespace SafeApp.Misc
         /// <param name="file">The file to Serialise and store.</param>
         /// <returns></returns>
         public Task DirInsertFileAsync(MDataInfo mDataInfo, string fileName, File file)
-        {
-            return AppBindings.DirInsertFileAsync(_appPtr, ref mDataInfo, fileName, ref file);
-        }
+            => AppBindings.DirInsertFileAsync(_appPtr, ref mDataInfo, fileName, ref file);
 
         /// <summary>
         /// Replace the existing file with a new file.
@@ -95,9 +87,7 @@ namespace SafeApp.Misc
         /// <param name="version">Version successor, to handle the concurrency issue.</param>
         /// <returns>The version successor for the updated file.</returns>
         public Task<ulong> DirUpdateFileAsync(MDataInfo mDataInfo, string fileName, File file, ulong version)
-        {
-            return AppBindings.DirUpdateFileAsync(_appPtr, ref mDataInfo, fileName, ref file, version);
-        }
+            => AppBindings.DirUpdateFileAsync(_appPtr, ref mDataInfo, fileName, ref file, version);
 
         /// <summary>
         /// Close a file after reading or writing operation.
@@ -105,9 +95,7 @@ namespace SafeApp.Misc
         /// <param name="fileContextHandle"></param>
         /// <returns></returns>
         public Task<File> FileCloseAsync(NativeHandle fileContextHandle)
-        {
-            return AppBindings.FileCloseAsync(_appPtr, fileContextHandle);
-        }
+            => AppBindings.FileCloseAsync(_appPtr, fileContextHandle);
 
         /// <summary>
         /// Open a file for reading or writing.
@@ -133,9 +121,7 @@ namespace SafeApp.Misc
         /// <param name="end">End position.</param>
         /// <returns>Content of file in provided range.</returns>
         public Task<byte[]> FileReadAsync(NativeHandle fileContextHandle, ulong start, ulong end)
-        {
-            return AppBindings.FileReadAsync(_appPtr, fileContextHandle, start, end);
-        }
+            => AppBindings.FileReadAsync(_appPtr, fileContextHandle, start, end);
 
         /// <summary>
         /// Get the file size.
@@ -143,9 +129,7 @@ namespace SafeApp.Misc
         /// <param name="fileContextHandle">File handle.</param>
         /// <returns>File size.</returns>
         public Task<ulong> FileSizeAsync(NativeHandle fileContextHandle)
-        {
-            return AppBindings.FileSizeAsync(_appPtr, fileContextHandle);
-        }
+            => AppBindings.FileSizeAsync(_appPtr, fileContextHandle);
 
         /// <summary>
         /// Write file.
@@ -155,8 +139,6 @@ namespace SafeApp.Misc
         /// <param name="data">Data to write in file.</param>
         /// <returns></returns>
         public Task FileWriteAsync(NativeHandle fileContextHandle, byte[] data)
-        {
-            return AppBindings.FileWriteAsync(_appPtr, fileContextHandle, data);
-        }
+            => AppBindings.FileWriteAsync(_appPtr, fileContextHandle, data);
     }
 }

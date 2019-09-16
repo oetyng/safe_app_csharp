@@ -22,9 +22,7 @@ namespace SafeApp.IData
         /// </summary>
         /// <param name="appPtr">SafeApp pointer.</param>
         internal IData(SafeAppPtr appPtr)
-        {
-            _appPtr = appPtr;
-        }
+            => _appPtr = appPtr;
 
         /// <summary>
         /// Close the writer.
@@ -35,9 +33,7 @@ namespace SafeApp.IData
         /// <param name="cipherOptH"></param>
         /// <returns>Address as XOR Name in byte array format.</returns>
         public Task<byte[]> CloseSelfEncryptorAsync(ulong seH, NativeHandle cipherOptH)
-        {
-            return AppBindings.IDataCloseSelfEncryptorAsync(_appPtr, seH, cipherOptH);
-        }
+            => AppBindings.IDataCloseSelfEncryptorAsync(_appPtr, seH, cipherOptH);
 
         /// <summary>
         /// Fetch an existing Immutable Data for the given address
@@ -68,11 +64,8 @@ namespace SafeApp.IData
         /// <param name="fromPos">Start position.</param>
         /// <param name="len">End position or end of data.</param>
         /// <returns></returns>
-        public async Task<byte[]> ReadFromSelfEncryptorAsync(NativeHandle seHandle, ulong fromPos, ulong len)
-        {
-            var dataArray = await AppBindings.IDataReadFromSelfEncryptorAsync(_appPtr, seHandle, fromPos, len);
-            return dataArray;
-        }
+        public Task<byte[]> ReadFromSelfEncryptorAsync(NativeHandle seHandle, ulong fromPos, ulong len)
+            => AppBindings.IDataReadFromSelfEncryptorAsync(_appPtr, seHandle, fromPos, len);
 
         /// <summary>
         /// Invoked to free the reader reference from memory.
@@ -80,9 +73,7 @@ namespace SafeApp.IData
         /// <param name="sEReaderHandle">Reader handle.</param>
         /// <returns></returns>
         private Task SelfEncryptorReaderFreeAsync(ulong sEReaderHandle)
-        {
-            return AppBindings.IDataSelfEncryptorReaderFreeAsync(_appPtr, sEReaderHandle);
-        }
+            => AppBindings.IDataSelfEncryptorReaderFreeAsync(_appPtr, sEReaderHandle);
 
         /// <summary>
         /// Invoked to free the writer reference from memory.
@@ -90,9 +81,7 @@ namespace SafeApp.IData
         /// <param name="sEWriterHandle">Writer handle of Immutable Data.</param>
         /// <returns></returns>
         private Task SelfEncryptorWriterFreeAsync(ulong sEWriterHandle)
-        {
-            return AppBindings.IDataSelfEncryptorWriterFreeAsync(_appPtr, sEWriterHandle);
-        }
+            => AppBindings.IDataSelfEncryptorWriterFreeAsync(_appPtr, sEWriterHandle);
 
         /// <summary>
         /// The size of the serialised Immutable Data.
@@ -100,9 +89,7 @@ namespace SafeApp.IData
         /// <param name="xorName">XOR address of Immutable Data.</param>
         /// <returns>Length in bytes.</returns>
         public Task<ulong> SerialisedSizeAsync(byte[] xorName)
-        {
-            return AppBindings.IDataSerialisedSizeAsync(_appPtr, xorName);
-        }
+            => AppBindings.IDataSerialisedSizeAsync(_appPtr, xorName);
 
         /// <summary>
         /// Get the size of the Immutable Data.
@@ -110,9 +97,7 @@ namespace SafeApp.IData
         /// <param name="seHandle">SE handle.</param>
         /// <returns>Length in bytes.</returns>
         public Task<ulong> SizeAsync(NativeHandle seHandle)
-        {
-            return AppBindings.IDataSizeAsync(_appPtr, seHandle);
-        }
+            => AppBindings.IDataSizeAsync(_appPtr, seHandle);
 
         /// <summary>
         /// Write Immutable Data.
@@ -122,8 +107,6 @@ namespace SafeApp.IData
         /// <param name="data">Data to append in existing Immutable Data.</param>
         /// <returns></returns>
         public Task WriteToSelfEncryptorAsync(NativeHandle seHandle, byte[] data)
-        {
-            return AppBindings.IDataWriteToSelfEncryptorAsync(_appPtr, seHandle, data);
-        }
+            => AppBindings.IDataWriteToSelfEncryptorAsync(_appPtr, seHandle, data);
     }
 }
