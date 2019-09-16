@@ -9,7 +9,6 @@ using SafeApp.MData;
 using SafeApp.Misc;
 
 // ReSharper disable UnusedMember.Global
-// ReSharper disable ConvertToLocalFunction
 
 namespace SafeApp
 {
@@ -109,13 +108,11 @@ namespace SafeApp
         /// <param name="authGranted">Authentication response.</param>
         /// <returns>New session based on appid and authentication response.</returns>
         public static Task<Session> AppRegisteredAsync(string appId, AuthGranted authGranted)
-        {
-            return Task.Run(
-                () =>
+            => Task.Run(() =>
                 {
                     var tcs = new TaskCompletionSource<Session>(TaskCreationOptions.RunContinuationsAsynchronously);
                     var session = new Session();
-                    Action<FfiResult, IntPtr, GCHandle> acctCreatedCb = (result, ptr, disconnectedHandle) =>
+                    void AcctCreatedCb(FfiResult result, IntPtr ptr, GCHandle disconnectedHandle)
                     {
                         if (result.ErrorCode != 0)
                         {
@@ -127,14 +124,13 @@ namespace SafeApp
 
                         session.Init(ptr, disconnectedHandle);
                         tcs.SetResult(session);
-                    };
+                    }
 
-                    Action disconnectedCb = () => { OnDisconnected(session); };
+                    void DisconnectedCb() => OnDisconnected(session);
 
-                    AppBindings.AppRegistered(appId, ref authGranted, disconnectedCb, acctCreatedCb);
+                    AppBindings.AppRegistered(appId, ref authGranted, DisconnectedCb, AcctCreatedCb);
                     return tcs.Task;
                 });
-        }
 
         /// <summary>
         /// Creates an unregistered session based on the config provided.
@@ -143,13 +139,12 @@ namespace SafeApp
         /// <param name="bootstrapConfig"></param>
         /// <returns></returns>
         public static Task<Session> AppUnregisteredAsync(byte[] bootstrapConfig)
-        {
-            return Task.Run(
-                () =>
+            => Task.Run(() =>
                 {
                     var tcs = new TaskCompletionSource<Session>(TaskCreationOptions.RunContinuationsAsynchronously);
                     var session = new Session();
-                    Action<FfiResult, IntPtr, GCHandle> acctCreatedCb = (result, ptr, disconnectedHandle) =>
+
+                    void AcctCreatedCb(FfiResult result, IntPtr ptr, GCHandle disconnectedHandle)
                     {
                         if (result.ErrorCode != 0)
                         {
@@ -161,14 +156,13 @@ namespace SafeApp
 
                         session.Init(ptr, disconnectedHandle);
                         tcs.SetResult(session);
-                    };
+                    }
 
-                    Action disconnectedCb = () => { OnDisconnected(session); };
+                    void DisconnectedCb() => OnDisconnected(session);
 
-                    AppBindings.AppUnregistered(bootstrapConfig, disconnectedCb, acctCreatedCb);
+                    AppBindings.AppUnregistered(bootstrapConfig, DisconnectedCb, AcctCreatedCb);
                     return tcs.Task;
                 });
-        }
 
         /// <summary>
         /// Decode the IPC response message.
@@ -322,8 +316,7 @@ namespace SafeApp
         /// Invoked after Disconnect callback is fired to reconnect the session with the network.
         /// </summary>
         public Task ReconnectAsync()
-            => Task.Run(
-                async () =>
+            => Task.Run(async () =>
                 {
                     await AppBindings.AppReconnectAsync(_appPtr);
                     IsDisconnected = false;

@@ -9,7 +9,6 @@ namespace SafeApp.MockAuthBindings
     /// <summary>
     /// The Authenticator contains all authentication related functionality for the mock network.
     /// </summary>
-    // ReSharper disable ConvertToLocalFunction
     // ReSharper disable UnusedMember.Global
     // ReSharper disable MemberCanBePrivate.Global
     public class Authenticator : IDisposable
@@ -77,8 +76,10 @@ namespace SafeApp.MockAuthBindings
               {
                   var authenticator = new Authenticator();
                   var tcs = new TaskCompletionSource<Authenticator>(TaskCreationOptions.RunContinuationsAsynchronously);
-                  Action disconnect = () => { OnDisconnected(authenticator); };
-                  Action<FfiResult, IntPtr, GCHandle> cb = (result, ptr, disconnectHandle) =>
+
+                  void DisconnectCb() => OnDisconnected(authenticator);
+
+                  void Cb(FfiResult result, IntPtr ptr, GCHandle disconnectHandle)
                   {
                       if (result.ErrorCode != 0)
                       {
@@ -93,8 +94,9 @@ namespace SafeApp.MockAuthBindings
 
                       authenticator.Init(ptr, disconnectHandle);
                       tcs.SetResult(authenticator);
-                  };
-                  NativeBindings.CreateAccount(locator, secret, invitation, disconnect, cb);
+                  }
+
+                  NativeBindings.CreateAccount(locator, secret, invitation, DisconnectCb, Cb);
                   return tcs.Task;
               });
 
@@ -280,8 +282,10 @@ namespace SafeApp.MockAuthBindings
               {
                   var authenticator = new Authenticator();
                   var tcs = new TaskCompletionSource<Authenticator>(TaskCreationOptions.RunContinuationsAsynchronously);
-                  Action disconnect = () => { OnDisconnected(authenticator); };
-                  Action<FfiResult, IntPtr, GCHandle> cb = (result, ptr, disconnectHandle) =>
+
+                  void DisconnectCb() => OnDisconnected(authenticator);
+
+                  void Cb(FfiResult result, IntPtr ptr, GCHandle disconnectHandle)
                   {
                       if (result.ErrorCode != 0)
                       {
@@ -296,8 +300,9 @@ namespace SafeApp.MockAuthBindings
 
                       authenticator.Init(ptr, disconnectHandle);
                       tcs.SetResult(authenticator);
-                  };
-                  NativeBindings.Login(locator, secret, disconnect, cb);
+                  }
+
+                  NativeBindings.Login(locator, secret, DisconnectCb, Cb);
                   return tcs.Task;
               });
 
