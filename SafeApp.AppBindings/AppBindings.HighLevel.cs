@@ -178,6 +178,24 @@ namespace SafeApp.AppBindings
             FfiResultStringCb oCb);
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public Task<string> KeysBalanceFromUrlAsync(ref IntPtr app, string url, string sk)
+        {
+            var (ret, userData) = BindingUtils.PrepareTask<string>();
+            KeysBalanceFromUrlNative(ref app, url, sk, userData, DelegateOnFfiResultStringCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "keys_balance_from_url")]
+        private static extern void KeysBalanceFromUrlNative(
+            ref IntPtr app,
+            string url,
+            string sk,
+            IntPtr userData,
+            FfiResultStringCb oCb);
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
 
         #endregion Keys
     }

@@ -73,5 +73,15 @@ namespace SafeApp.Tests
 
             var balance = await api.KeysBalanceFromSkAsync(keyPair.SK);
         }
+
+        [Test]
+        public async Task KeysBalanceFromUrlTest()
+        {
+            var session = await TestUtils.CreateTestApp();
+            var api = session.Keys;
+            var (xorurl, keyPair) = await api.KeysCreatePreloadTestCoinsAsync("1");
+
+            var balance = await api.KeysBalanceFromUrlAsync(xorurl, keyPair.SK);
+        }
     }
 }
