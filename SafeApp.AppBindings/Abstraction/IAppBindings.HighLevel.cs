@@ -26,6 +26,8 @@ namespace SafeApp.AppBindings
 
         Task<string> ValidateSkForUrlAsync(ref IntPtr app, string sk, string url);
 
+        Task<ulong> KeysTransferAsync(ref IntPtr app, string amount, string fromSk, string toUrl, ulong txId);
+
         #endregion Keys
     }
 }

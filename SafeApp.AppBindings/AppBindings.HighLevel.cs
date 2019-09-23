@@ -214,6 +214,26 @@ namespace SafeApp.AppBindings
             FfiResultStringCb oCb);
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public Task<ulong> KeysTransferAsync(ref IntPtr app, string amount, string fromSk, string toUrl, ulong txId)
+        {
+            var (ret, userData) = BindingUtils.PrepareTask<ulong>();
+            KeysTransferNative(ref app, amount, fromSk, toUrl, txId, userData, DelegateOnFfiResultULongCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "keys_transfer")]
+        private static extern void KeysTransferNative(
+            ref IntPtr app,
+            string amount,
+            string from,
+            string to,
+            ulong id,
+            IntPtr userData,
+            FfiResultULongCb oCb);
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
 
         #endregion Keys
     }

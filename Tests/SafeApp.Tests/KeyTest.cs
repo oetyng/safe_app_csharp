@@ -93,5 +93,24 @@ namespace SafeApp.Tests
 
             var publicKey = await api.ValidateSkForUrlAsync(keyPair.SK, xorurl);
         }
+
+        [Test]
+        public async Task KeysTransferTest()
+        {
+            var amountToSend = "1";
+            var txId = 1234UL;
+
+            var sessionSender = await GetSessionAsync();
+            var apiSender = sessionSender.Keys;
+            var (_, keyPairSender) = await apiSender.KeysCreatePreloadTestCoinsAsync(amountToSend);
+
+            var sessionRecipient = await GetSessionAsync();
+            var apiRecipient = sessionRecipient.Keys;
+            var (recipientUrl, keyPairRecipient) = await apiRecipient.KeysCreatePreloadTestCoinsAsync("0.1");
+
+            var resultTxId = await apiSender.KeysTransferAsync("1", keyPairSender.SK, recipientUrl, txId);
+
+            Assert.AreEqual(txId, resultTxId);
+        }
     }
 }

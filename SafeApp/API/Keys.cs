@@ -54,5 +54,8 @@ namespace SafeApp.API
 
         public Task<string> ValidateSkForUrlAsync(string sk, string url)
             => AppBindings.ValidateSkForUrlAsync(ref _appPtr, sk, url);
+
+        public Task<ulong> KeysTransferAsync(string amount, string fromSk, string toUrl, ulong txId)
+            => AppBindings.KeysTransferAsync(ref _appPtr, amount, fromSk, toUrl, txId);
     }
 }
