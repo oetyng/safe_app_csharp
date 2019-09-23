@@ -16,6 +16,8 @@ namespace SafeApp.AppBindings
 
         Task<BlsKeyPair> GenerateKeyPairAsync(ref IntPtr app);
 
+        Task<(string, BlsKeyPair?)> CreateKeysAsync(ref IntPtr app, string from, string preloadAmount, string pk);
+
         #endregion Keys
     }
 }
