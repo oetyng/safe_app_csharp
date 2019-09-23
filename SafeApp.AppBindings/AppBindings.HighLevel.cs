@@ -133,7 +133,7 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "keys_create_preload_test_coins")]
         private static extern void KeysCreatePreloadTestCoinsNative(
             ref IntPtr app,
-            string preload,
+            [MarshalAs(UnmanagedType.LPStr)] string preload,
             IntPtr userData,
             FfiResultStringBlsKeyPairCb oCb);
 
@@ -173,7 +173,7 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "keys_balance_from_sk")]
         private static extern void KeysBalanceFromSkNative(
             ref IntPtr app,
-            string sk,
+            [MarshalAs(UnmanagedType.LPStr)] string sk,
             IntPtr userData,
             FfiResultStringCb oCb);
 
@@ -190,8 +190,8 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "keys_balance_from_url")]
         private static extern void KeysBalanceFromUrlNative(
             ref IntPtr app,
-            string url,
-            string sk,
+            [MarshalAs(UnmanagedType.LPStr)] string url,
+            [MarshalAs(UnmanagedType.LPStr)] string sk,
             IntPtr userData,
             FfiResultStringCb oCb);
 
@@ -208,8 +208,8 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "validate_sk_for_url")]
         private static extern void ValidateSkForUrlNative(
             ref IntPtr app,
-            string sk,
-            string url,
+            [MarshalAs(UnmanagedType.LPStr)] string sk,
+            [MarshalAs(UnmanagedType.LPStr)] string url,
             IntPtr userData,
             FfiResultStringCb oCb);
 
@@ -226,9 +226,9 @@ namespace SafeApp.AppBindings
         [DllImport(DllName, EntryPoint = "keys_transfer")]
         private static extern void KeysTransferNative(
             ref IntPtr app,
-            string amount,
-            string from,
-            string to,
+            [MarshalAs(UnmanagedType.LPStr)] string amount,
+            [MarshalAs(UnmanagedType.LPStr)] string from,
+            [MarshalAs(UnmanagedType.LPStr)] string to,
             ulong id,
             IntPtr userData,
             FfiResultULongCb oCb);
