@@ -34,6 +34,8 @@ namespace SafeApp.AppBindings
 
         Task<XorUrlEncoder> ParseUrlAsync(ref IntPtr app, string url);
 
+        Task<(XorUrlEncoder, bool)> ParseAndResolveUrlAsync(ref IntPtr app, string url);
+
         #endregion NRS
     }
 }

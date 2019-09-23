@@ -277,6 +277,46 @@ namespace SafeApp.AppBindings
         // ------------------------------------------------------------------------------------------------------------------------------------------------
         // ------------------------------------------------------------------------------------------------------------------------------------------------
 
+        public Task<(XorUrlEncoder, bool)> ParseAndResolveUrlAsync(ref IntPtr app, string url)
+        {
+            var (ret, userData) = BindingUtils.PrepareTask<(XorUrlEncoder, bool)>();
+            ParseAndResolveUrlNative(ref app, url, userData, DelegateOnFfiResultXorUrlEncoderBoolCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "parse_and_resolve_url")]
+        private static extern void ParseAndResolveUrlNative(
+            ref IntPtr app,
+            [MarshalAs(UnmanagedType.LPStr)] string url,
+            IntPtr userData,
+            FfiResultXorUrlEncoderBoolCb oCb);
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        private delegate void FfiResultXorUrlEncoderBoolCb(
+            IntPtr userData,
+            IntPtr result,
+            IntPtr xorUrlEncoder,
+            bool resolvesAsNrs);
+
+#if __IOS__
+        [MonoPInvokeCallback(typeof(FfiResultXorUrlEncoderBoolCb))]
+#endif
+        private static void OnFfiResultXorUrlEncoderBoolCb(
+            IntPtr userData,
+            IntPtr result,
+            IntPtr xorUrlEncoder,
+            bool resolvesAsNrs)
+            => BindingUtils.CompleteTask(
+                userData,
+                Marshal.PtrToStructure<FfiResult>(result),
+                () => (Marshal.PtrToStructure<XorUrlEncoder>(xorUrlEncoder), resolvesAsNrs));
+
+        private static readonly FfiResultXorUrlEncoderBoolCb DelegateOnFfiResultXorUrlEncoderBoolCb = OnFfiResultXorUrlEncoderBoolCb;
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
         #endregion NRS
     }
 }
