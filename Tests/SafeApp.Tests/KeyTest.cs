@@ -63,5 +63,15 @@ namespace SafeApp.Tests
 
             // Todo: replace with call to api.ValidateKeys
         }
+
+        [Test]
+        public async Task KeysBalanceFromSkTest()
+        {
+            var session = await TestUtils.CreateTestApp();
+            var api = session.Keys;
+            var (xorurl, keyPair) = await api.KeysCreatePreloadTestCoinsAsync("1");
+
+            var balance = await api.KeysBalanceFromSkAsync(keyPair.SK);
+        }
     }
 }

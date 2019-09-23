@@ -45,5 +45,8 @@ namespace SafeApp.API
 
         public Task<(string, BlsKeyPair)> KeysCreatePreloadTestCoinsAsync(string preloadAmount)
             => AppBindings.KeysCreatePreloadTestCoinsAsync(ref _appPtr, preloadAmount);
+
+        public Task<string> KeysBalanceFromSkAsync(string sk)
+            => AppBindings.KeysBalanceFromSkAsync(ref _appPtr, sk);
     }
 }

@@ -159,6 +159,26 @@ namespace SafeApp.AppBindings
                 () => (xorUrl, Marshal.PtrToStructure<BlsKeyPair>(safeKey)));
 
         private static readonly FfiResultStringBlsKeyPairCb DelegateOnFfiResultStringBlsKeyPairCb = OnFfiResultStringBlsKeyPairCb;
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public Task<string> KeysBalanceFromSkAsync(ref IntPtr app, string sk)
+        {
+            var (ret, userData) = BindingUtils.PrepareTask<string>();
+            KeysBalanceFromSkNative(ref app, sk, userData, DelegateOnFfiResultStringCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "keys_balance_from_sk")]
+        private static extern void KeysBalanceFromSkNative(
+            ref IntPtr app,
+            string sk,
+            IntPtr userData,
+            FfiResultStringCb oCb);
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
         #endregion Keys
     }
 }
