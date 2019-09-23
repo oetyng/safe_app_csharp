@@ -24,6 +24,8 @@ namespace SafeApp.AppBindings
 
         Task<string> KeysBalanceFromUrlAsync(ref IntPtr app, string url, string sk);
 
+        Task<string> ValidateSkForUrlAsync(ref IntPtr app, string sk, string url);
+
         #endregion Keys
     }
 }

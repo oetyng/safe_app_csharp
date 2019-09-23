@@ -196,6 +196,24 @@ namespace SafeApp.AppBindings
             FfiResultStringCb oCb);
 
         // ------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public Task<string> ValidateSkForUrlAsync(ref IntPtr app, string sk, string url)
+        {
+            var (ret, userData) = BindingUtils.PrepareTask<string>();
+            ValidateSkForUrlNative(ref app, sk, url, userData, DelegateOnFfiResultStringCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "validate_sk_for_url")]
+        private static extern void ValidateSkForUrlNative(
+            ref IntPtr app,
+            string sk,
+            string url,
+            IntPtr userData,
+            FfiResultStringCb oCb);
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
 
         #endregion Keys
     }

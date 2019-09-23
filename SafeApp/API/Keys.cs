@@ -51,5 +51,8 @@ namespace SafeApp.API
 
         public Task<string> KeysBalanceFromUrlAsync(string url, string sk)
             => AppBindings.KeysBalanceFromUrlAsync(ref _appPtr, url, sk);
+
+        public Task<string> ValidateSkForUrlAsync(string sk, string url)
+            => AppBindings.ValidateSkForUrlAsync(ref _appPtr, sk, url);
     }
 }
