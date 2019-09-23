@@ -120,6 +120,45 @@ namespace SafeApp.AppBindings
 
         private static readonly FfiResultStringNullableBlsKeyPairCb DelegateOnFfiResultStringNullableBlsKeyPairCb = OnFfiResultStringNullableBlsKeyPairCb;
 
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public Task<(string, BlsKeyPair)> KeysCreatePreloadTestCoinsAsync(ref IntPtr app, string preloadAmount)
+        {
+            var (ret, userData) = BindingUtils.PrepareTask<(string, BlsKeyPair)>();
+            KeysCreatePreloadTestCoinsNative(ref app, preloadAmount, userData, DelegateOnFfiResultStringBlsKeyPairCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "keys_create_preload_test_coins")]
+        private static extern void KeysCreatePreloadTestCoinsNative(
+            ref IntPtr app,
+            string preload,
+            IntPtr userData,
+            FfiResultStringBlsKeyPairCb oCb);
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        private delegate void FfiResultStringBlsKeyPairCb(
+            IntPtr userData,
+            IntPtr result,
+            string xorUrl,
+            IntPtr safeKey);
+
+#if __IOS__
+        [MonoPInvokeCallback(typeof(FfiResultStringBlsKeyPairCb))]
+#endif
+        private static void OnFfiResultStringBlsKeyPairCb(
+            IntPtr userData,
+            IntPtr result,
+            string xorUrl,
+            IntPtr safeKey)
+            => BindingUtils.CompleteTask(
+                userData,
+                Marshal.PtrToStructure<FfiResult>(result),
+                () => (xorUrl, Marshal.PtrToStructure<BlsKeyPair>(safeKey)));
+
+        private static readonly FfiResultStringBlsKeyPairCb DelegateOnFfiResultStringBlsKeyPairCb = OnFfiResultStringBlsKeyPairCb;
         #endregion Keys
     }
 }

@@ -46,5 +46,22 @@ namespace SafeApp.Tests
                 AppContainer = true,
                 Containers = new List<ContainerPermissions>()
             });
+
+        [Test]
+        public async Task KeysCreatePreloadTestCoinsTest()
+        {
+            var session = await TestUtils.CreateTestApp();
+            var api = session.Keys;
+
+            var (xorurl, keyPair) = await api.KeysCreatePreloadTestCoinsAsync("1");
+
+            Assert.IsNotNull(xorurl);
+            Assert.IsNotNull(keyPair.PK);
+            Assert.IsNotNull(keyPair.SK);
+            Assert.AreNotSame(string.Empty, keyPair.PK);
+            Assert.AreNotSame(string.Empty, keyPair.SK);
+
+            // Todo: replace with call to api.ValidateKeys
+        }
     }
 }
