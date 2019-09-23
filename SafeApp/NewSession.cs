@@ -17,6 +17,8 @@ namespace SafeApp
 
         public Keys Keys { get; private set; }
 
+        public Nrs Nrs { get; private set; }
+
         private NewSession()
         {
             IsDisconnected = true;
@@ -52,6 +54,7 @@ namespace SafeApp
             IsDisconnected = false;
             _appPtr = new SafeAppPtr(appPtr);
             Keys = new Keys(_appPtr);
+            Nrs = new Nrs(_appPtr);
         }
     }
 }
