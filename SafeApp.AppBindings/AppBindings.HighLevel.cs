@@ -236,5 +236,47 @@ namespace SafeApp.AppBindings
         // ------------------------------------------------------------------------------------------------------------------------------------------------
 
         #endregion Keys
+
+        #region NRS
+
+        public Task<XorUrlEncoder> ParseUrlAsync(ref IntPtr app, string url)
+        {
+            var (ret, userData) = BindingUtils.PrepareTask<XorUrlEncoder>();
+            ParseUrlNative(ref app, url, userData, DelegateOnFfiResultXorUrlEncoderCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "parse_url")]
+        private static extern void ParseUrlNative(
+            ref IntPtr app,
+            [MarshalAs(UnmanagedType.LPStr)] string url,
+            IntPtr userData,
+            FfiResultXorUrlEncoderCb oCb);
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        private delegate void FfiResultXorUrlEncoderCb(
+            IntPtr userData,
+            IntPtr result,
+            IntPtr xorUrlEncoder);
+
+#if __IOS__
+        [MonoPInvokeCallback(typeof(FfiResultXorUrlEncoderCb))]
+#endif
+        private static void OnFfiResultXorUrlEncoderCb(
+            IntPtr userData,
+            IntPtr result,
+            IntPtr xorUrlEncoder)
+            => BindingUtils.CompleteTask(
+                userData,
+                Marshal.PtrToStructure<FfiResult>(result),
+                () => Marshal.PtrToStructure<XorUrlEncoder>(xorUrlEncoder));
+
+        private static readonly FfiResultXorUrlEncoderCb DelegateOnFfiResultXorUrlEncoderCb = OnFfiResultXorUrlEncoderCb;
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        #endregion NRS
     }
 }

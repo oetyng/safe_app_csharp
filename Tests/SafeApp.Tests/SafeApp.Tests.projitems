@@ -9,7 +9,6 @@
     <Import_RootNamespace>SafeApp.Tests</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)BaseTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NrsTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)KeyTest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AuthTest.cs" />

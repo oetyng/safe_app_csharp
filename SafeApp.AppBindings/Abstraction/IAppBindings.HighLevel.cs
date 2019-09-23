@@ -29,5 +29,11 @@ namespace SafeApp.AppBindings
         Task<ulong> KeysTransferAsync(ref IntPtr app, string amount, string fromSk, string toUrl, ulong txId);
 
         #endregion Keys
+
+        #region NRS
+
+        Task<XorUrlEncoder> ParseUrlAsync(ref IntPtr app, string url);
+
+        #endregion NRS
     }
 }

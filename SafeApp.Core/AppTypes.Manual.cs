@@ -7,6 +7,140 @@ namespace SafeApp.Core
 #pragma warning disable SA1401 // Fields should be private
 
     /// <summary>
+    /// Some
+    /// </summary>
+    [PublicAPI]
+    public struct XorUrlEncoder
+    {
+        /// <summary>
+        /// Some
+        /// </summary>
+        public ulong EncodingVersion { get; set; } // currently only v1 supported
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        public byte[] XorName { get; set; }
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        public ulong TypeTag { get; set; }
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        public SafeDataType DataType { get; set; }
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        public SafeContentType ContentType { get; set; }
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        public string Path { get; set; }
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        public string SubNames { get; set; }
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        public ulong ContentVersion { get; set; }
+    }
+
+    /// <summary>
+    /// Some
+    /// </summary>
+    [PublicAPI]
+    public struct XorNameArray
+    {
+    }
+
+    /// <summary>
+    /// Some
+    /// </summary>
+    public enum SafeContentType
+    {
+        /// <summary>
+        /// Some
+        /// </summary>
+        Raw = 0x0000,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        Wallet = 0x0001,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        FilesContainer = 0x0002,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        NrsMapContainer = 0x0003,
+    }
+
+    /// <summary>
+    /// Some
+    /// </summary>
+    public enum SafeDataType
+    {
+        /// <summary>
+        /// Some
+        /// </summary>
+        SafeKey = 0x00,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        PublishedImmutableData = 0x01,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        UnpublishedImmutableData = 0x02,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        SeqMutableData = 0x03,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        UnseqMutableData = 0x04,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        PublishedSeqAppendOnlyData = 0x05,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        PublishedUnseqAppendOnlyData = 0x06,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        UnpublishedSeqAppendOnlyData = 0x07,
+
+        /// <summary>
+        /// Some
+        /// </summary>
+        UnpublishedUnseqAppendOnlyData = 0x08,
+    }
+
+    // -------------------------------------------------------------------------------------------
+
+    /// <summary>
     /// Public and secret BLS key.
     /// </summary>
     public struct BlsKeyPair

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using SafeApp.AppBindings;
+using SafeApp.Core;
 
 namespace SafeApp.API
 {
@@ -18,5 +20,12 @@ namespace SafeApp.API
         /// <param name="appPtr">SafeApp pointer.</param>
         internal Nrs(SafeAppPtr appPtr)
             => _appPtr = appPtr;
+
+        /// <summary>
+        /// Parses a string xor url into a XorUrlEncoder.
+        /// </summary>
+        /// <returns>XorUrlEncoder.</returns>
+        public Task<XorUrlEncoder> ParseUrlAsync(string url)
+            => AppBindings.ParseUrlAsync(ref _appPtr, url);
     }
 }
