@@ -53,15 +53,17 @@ namespace SafeApp.Tests
             var session = await TestUtils.CreateTestApp();
             var api = session.Keys;
 
-            var (xorurl, keyPair) = await api.KeysCreatePreloadTestCoinsAsync("1");
+            var (xorUrl, keyPair) = await api.KeysCreatePreloadTestCoinsAsync("1");
 
-            Assert.IsNotNull(xorurl);
+            Assert.IsNotNull(xorUrl);
             Assert.IsNotNull(keyPair.PK);
             Assert.IsNotNull(keyPair.SK);
             Assert.AreNotSame(string.Empty, keyPair.PK);
             Assert.AreNotSame(string.Empty, keyPair.SK);
 
-            // Todo: replace with call to api.ValidateKeys
+            var publicKey = await api.ValidateSkForUrlAsync(keyPair.SK, xorUrl);
+
+            Assert.AreEqual(keyPair.PK, publicKey);
         }
 
         [Test]
