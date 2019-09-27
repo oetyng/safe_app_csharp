@@ -372,6 +372,66 @@ namespace SafeApp.AppBindings
 
         private static readonly FfiResultNrsMapXorUrlCb DelegateOnFfiResultNrsMapXorUrlCb = OnFfiResultNrsMapXorUrlCb;
 
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public Task<(NrsMap, string, ulong)> AddToNrsMapContainerAsync(
+            ref IntPtr app,
+            string name,
+            string link,
+            bool setDefault,
+            bool directLink,
+            bool dryRun)
+        {
+            var (ret, userData) = BindingUtils.PrepareTask<(NrsMap, string, ulong)>();
+            AddToNrsMapContainerNative(
+                ref app,
+                name,
+                link,
+                setDefault,
+                directLink,
+                dryRun,
+                userData,
+                DelegateOnFfiResultNrsMapXorUrlULongCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "nrs_map_container_add")]
+        private static extern void AddToNrsMapContainerNative(
+            ref IntPtr app,
+            [MarshalAs(UnmanagedType.LPStr)] string name,
+            [MarshalAs(UnmanagedType.LPStr)] string link,
+            bool setDefault,
+            bool directLink,
+            bool dryRun,
+            IntPtr userData,
+            FfiResultNrsMapXorUrlULongCb oCb);
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        private delegate void FfiResultNrsMapXorUrlULongCb(
+            IntPtr userData,
+            IntPtr result,
+            IntPtr nrsMap,
+            string xorUrl,
+            ulong version);
+
+#if __IOS__
+        [MonoPInvokeCallback(typeof(FfiResultNrsMapXorUrlULongCb))]
+#endif
+        private static void OnFfiResultNrsMapXorUrlULongCb(
+            IntPtr userData,
+            IntPtr result,
+            IntPtr nrsMap,
+            string xorUrl,
+            ulong version)
+            => BindingUtils.CompleteTask(
+                userData,
+                Marshal.PtrToStructure<FfiResult>(result),
+                () => (new NrsMap(Marshal.PtrToStructure<NrsMapNative>(nrsMap)), xorUrl, version));
+
+        private static readonly FfiResultNrsMapXorUrlULongCb DelegateOnFfiResultNrsMapXorUrlULongCb = OnFfiResultNrsMapXorUrlULongCb;
+
         #endregion NRS
     }
 }

@@ -53,5 +53,35 @@ namespace SafeApp.Tests
             });
             Assert.IsNotNull(xorUrl);
         }
+
+        [Test]
+        public async Task AddToNrsMapContainerTest()
+        {
+            var session = await TestUtils.CreateTestApp();
+            var name = "someName";
+
+            // todo: put file, use its address as link
+            // in the meanwhile put the file through cli.
+            var link = "safe://hnyynys9j9sd6ku5wu9pz6uodmwk5446e1ee7u4x5gtbhocmastfcjuiksbnc?v=0";
+
+            var setDefault = true;
+            var directLink = true;
+            var dryRun = false;
+
+            var api = session.Nrs;
+            var (nrsMap, xorUrl, version) = await api.AddToNrsMapContainerAsync(name, link, setDefault, directLink, dryRun);
+
+            Assert.IsNotNull(nrsMap.SubNamesMap);
+            Assert.IsNotEmpty(nrsMap.SubNamesMap.SubNames);
+            Assert.IsNotNull(nrsMap.Default);
+            nrsMap.SubNamesMap.SubNames.ForEach(s =>
+            {
+                Assert.IsNotNull(s.SubName);
+                Assert.IsNotNull(s.SubNameRdf);
+            });
+            Assert.IsNotNull(xorUrl);
+
+            // todo: validate version
+        }
     }
 }
