@@ -1,10 +1,121 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 
 namespace SafeApp.Core
 {
 #pragma warning disable SA1401 // Fields should be private
+
+    /// <summary>
+    /// NrsMap
+    /// </summary>
+    [PublicAPI]
+    public struct NrsMap
+    {
+        public SubNamesMap SubNamesMap;
+
+        public string Default;
+
+        internal NrsMap(NrsMapNative nrsMapNative)
+        {
+            SubNamesMap = new SubNamesMap(nrsMapNative.SubNamesMap);
+            Default = nrsMapNative.Default;
+        }
+
+        /// <summary>
+        /// Returns native NrsMap.
+        /// </summary>
+        /// <returns></returns>
+        internal NrsMapNative ToNative()
+            => new NrsMapNative
+            {
+                SubNamesMap = SubNamesMap.ToNative(),
+                Default = Default
+            };
+    }
+
+    /// <summary>
+    /// Native NrsMap
+    /// </summary>
+    internal struct NrsMapNative
+    {
+        /// <summary>
+        /// Native sub name map.
+        /// </summary>
+        public SubNamesMapNative SubNamesMap;
+
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string Default;
+    }
+
+    /// <summary>
+    /// Some
+    /// </summary>
+    [PublicAPI]
+    public struct SubNamesMap
+    {
+        /// <summary>
+        /// Sub name map entries.
+        /// </summary>
+        public List<SubNamesMapEntry> SubNames;
+
+        /// <summary>
+        /// Initialise a new sub names map object from native sub names map.
+        /// </summary>
+        /// <param name="native"></param>
+        internal SubNamesMap(SubNamesMapNative native)
+            => SubNames = BindingUtils.CopyToObjectList<SubNamesMapEntry>(native.SubNamesPtr, (int)native.SubNameLen);
+
+        /// <summary>
+        /// Returns native sub names map.
+        /// </summary>
+        /// <returns></returns>
+        internal SubNamesMapNative ToNative()
+            => new SubNamesMapNative
+            {
+                SubNamesPtr = BindingUtils.CopyFromObjectList(SubNames),
+                SubNameLen = (UIntPtr)(SubNames?.Count ?? 0),
+                SubNameCap = UIntPtr.Zero
+            };
+    }
+
+    internal struct SubNamesMapNative
+    {
+        /// <summary>
+        /// Sub name entry.
+        /// </summary>
+        public IntPtr SubNamesPtr;
+
+        /// <summary>
+        /// Size of sub name.
+        /// </summary>
+        public UIntPtr SubNameLen;
+
+        /// <summary>
+        /// Capacity of sub name.
+        /// </summary>
+        // ReSharper disable once NotAccessedField.Compiler
+        public UIntPtr SubNameCap;
+    }
+
+    /// <summary>
+    /// Some
+    /// </summary>
+    public struct SubNamesMapEntry
+    {
+        /// <summary>
+        /// The name.
+        /// </summary>
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string SubName;
+
+        /// <summary>
+        /// The rdf name.
+        /// </summary>
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string SubNameRdf;
+    }
 
     /// <summary>
     /// Some

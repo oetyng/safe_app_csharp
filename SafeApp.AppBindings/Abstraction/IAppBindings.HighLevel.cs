@@ -36,6 +36,14 @@ namespace SafeApp.AppBindings
 
         Task<(XorUrlEncoder, bool)> ParseAndResolveUrlAsync(ref IntPtr app, string url);
 
+        Task<(NrsMap, string)> CreateNrsMapContainerAsync(
+            ref IntPtr app,
+            string name,
+            string link,
+            bool directLink,
+            bool dryRun,
+            bool setDefault);
+
         #endregion NRS
     }
 }

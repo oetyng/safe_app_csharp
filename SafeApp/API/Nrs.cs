@@ -35,5 +35,11 @@ namespace SafeApp.API
         /// <returns>XorUrlEncoder and boolean indicating if the URL has to be resolved as NRS-URL.</returns>
         public Task<(XorUrlEncoder, bool)> ParseAndResolveUrlAsync(string url)
             => AppBindings.ParseAndResolveUrlAsync(ref _appPtr, url);
+
+        /// <summary>
+        /// Create a NrsMapContainer.
+        /// </summary>
+        public Task<(NrsMap, string)> CreateNrsMapContainerAsync(string name, string link, bool directLink, bool dryRun, bool setDefault)
+            => AppBindings.CreateNrsMapContainerAsync(ref _appPtr, name, link, directLink, dryRun, setDefault);
     }
 }
