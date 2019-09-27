@@ -57,6 +57,10 @@ namespace SafeApp.AppBindings
             string name,
             bool dryRun);
 
+        Task<(NrsMap, ulong)> GetNrsMapContainerAsync(
+            ref IntPtr app,
+            string url);
+
         #endregion NRS
     }
 }

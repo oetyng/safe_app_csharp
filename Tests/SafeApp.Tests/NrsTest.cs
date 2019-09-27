@@ -107,5 +107,26 @@ namespace SafeApp.Tests
 
             // todo: validate version
         }
+
+        [Test]
+        public async Task GetNrsMapContainerTest()
+        {
+            var session = await TestUtils.CreateTestApp();
+            var url = "safe://hnyynys9j9sd6ku5wu9pz6uodmwk5446e1ee7u4x5gtbhocmastfcjuiksbnc";
+
+            var api = session.Nrs;
+            var (nrsMap, version) = await api.GetNrsMapContainerAsync(url);
+
+            Assert.IsNotNull(nrsMap.SubNamesMap);
+            Assert.IsNotEmpty(nrsMap.SubNamesMap.SubNames);
+            Assert.IsNotNull(nrsMap.Default);
+            nrsMap.SubNamesMap.SubNames.ForEach(s =>
+            {
+                Assert.IsNotNull(s.SubName);
+                Assert.IsNotNull(s.SubNameRdf);
+            });
+
+            // todo: validate version
+        }
     }
 }

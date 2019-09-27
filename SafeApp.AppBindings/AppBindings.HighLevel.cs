@@ -458,6 +458,52 @@ namespace SafeApp.AppBindings
             IntPtr userData,
             FfiResultNrsMapXorUrlULongCb oCb);
 
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public Task<(NrsMap, ulong)> GetNrsMapContainerAsync(
+            ref IntPtr app,
+            string url)
+        {
+            var (ret, userData) = BindingUtils.PrepareTask<(NrsMap, ulong)>();
+            GetNrsMapContainerNative(
+                ref app,
+                url,
+                userData,
+                DelegateOnFfiResultNrsMapULongCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "nrs_map_container_get")]
+        private static extern void GetNrsMapContainerNative(
+            ref IntPtr app,
+            [MarshalAs(UnmanagedType.LPStr)] string url,
+            IntPtr userData,
+            FfiResultNrsMapULongCb oCb);
+
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        private delegate void FfiResultNrsMapULongCb(
+            IntPtr userData,
+            IntPtr result,
+            IntPtr nrsMap,
+            ulong version);
+
+#if __IOS__
+        [MonoPInvokeCallback(typeof(FfiResultNrsMapULongCb))]
+#endif
+        private static void OnFfiResultNrsMapULongCb(
+            IntPtr userData,
+            IntPtr result,
+            IntPtr nrsMap,
+            ulong version)
+            => BindingUtils.CompleteTask(
+                userData,
+                Marshal.PtrToStructure<FfiResult>(result),
+                () => (new NrsMap(Marshal.PtrToStructure<NrsMapNative>(nrsMap)), version));
+
+        private static readonly FfiResultNrsMapULongCb DelegateOnFfiResultNrsMapULongCb = OnFfiResultNrsMapULongCb;
+
         #endregion NRS
     }
 }

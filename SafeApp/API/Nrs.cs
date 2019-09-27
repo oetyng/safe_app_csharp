@@ -53,5 +53,11 @@ namespace SafeApp.API
         /// </summary>
         public Task<(NrsMap, string, ulong)> RemoveFromNrsMapContainerAsync(string name, bool dryRun)
             => AppBindings.RemoveFromNrsMapContainerAsync(ref _appPtr, name, dryRun);
+
+        /// <summary>
+        /// Get an NrsMapContainer.
+        /// </summary>
+        public Task<(NrsMap, ulong)> GetNrsMapContainerAsync(string url)
+            => AppBindings.GetNrsMapContainerAsync(ref _appPtr, url);
     }
 }
