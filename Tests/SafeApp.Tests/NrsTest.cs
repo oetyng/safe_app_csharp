@@ -83,5 +83,29 @@ namespace SafeApp.Tests
 
             // todo: validate version
         }
+
+        [Test]
+        public async Task RemoveFromNrsMapContainerTest()
+        {
+            var session = await TestUtils.CreateTestApp();
+            var name = "someName";
+
+            var dryRun = false;
+
+            var api = session.Nrs;
+            var (nrsMap, xorUrl, version) = await api.RemoveFromNrsMapContainerAsync(name, dryRun);
+
+            Assert.IsNotNull(nrsMap.SubNamesMap);
+            Assert.IsNotEmpty(nrsMap.SubNamesMap.SubNames);
+            Assert.IsNotNull(nrsMap.Default);
+            nrsMap.SubNamesMap.SubNames.ForEach(s =>
+            {
+                Assert.IsNotNull(s.SubName);
+                Assert.IsNotNull(s.SubNameRdf);
+            });
+            Assert.IsNotNull(xorUrl);
+
+            // todo: validate version
+        }
     }
 }

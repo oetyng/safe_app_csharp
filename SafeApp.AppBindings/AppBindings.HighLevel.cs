@@ -432,6 +432,32 @@ namespace SafeApp.AppBindings
 
         private static readonly FfiResultNrsMapXorUrlULongCb DelegateOnFfiResultNrsMapXorUrlULongCb = OnFfiResultNrsMapXorUrlULongCb;
 
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+        // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        public Task<(NrsMap, string, ulong)> RemoveFromNrsMapContainerAsync(
+            ref IntPtr app,
+            string name,
+            bool dryRun)
+        {
+            var (ret, userData) = BindingUtils.PrepareTask<(NrsMap, string, ulong)>();
+            RemoveFromNrsMapContainerNative(
+                ref app,
+                name,
+                dryRun,
+                userData,
+                DelegateOnFfiResultNrsMapXorUrlULongCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "nrs_map_container_remove")]
+        private static extern void RemoveFromNrsMapContainerNative(
+            ref IntPtr app,
+            [MarshalAs(UnmanagedType.LPStr)] string name,
+            bool dryRun,
+            IntPtr userData,
+            FfiResultNrsMapXorUrlULongCb oCb);
+
         #endregion NRS
     }
 }

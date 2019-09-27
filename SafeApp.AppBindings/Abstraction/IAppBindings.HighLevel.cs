@@ -52,6 +52,11 @@ namespace SafeApp.AppBindings
             bool directLink,
             bool dryRun);
 
+        Task<(NrsMap, string, ulong)> RemoveFromNrsMapContainerAsync(
+            ref IntPtr app,
+            string name,
+            bool dryRun);
+
         #endregion NRS
     }
 }
