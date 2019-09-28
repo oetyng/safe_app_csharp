@@ -55,7 +55,8 @@ namespace SafeApp.Tests
                     Vendor = GetRandomString(5)
                 },
                 AppContainer = true,
-                Containers = new List<ContainerPermissions>()
+                Containers = new List<ContainerPermissions>(),
+                AppPermissionTransferCoins = true
             };
             return CreateTestApp(locator, secret, authReq);
         }
