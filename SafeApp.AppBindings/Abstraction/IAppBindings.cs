@@ -87,6 +87,10 @@ namespace SafeApp.AppBindings
         Task<ulong> KeysTransferAsync(IntPtr app, string amount, string fromSk, string toUrl, ulong txId);
 
         #endregion Keys
+
+        #region Files
+
+        #endregion Files
     }
 }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

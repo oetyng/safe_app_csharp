@@ -400,5 +400,9 @@ namespace SafeApp.AppBindings
         private static readonly FfiResultULongCb DelegateOnFfiResultULongCb = OnFfiResultULongCb;
 
         #endregion Keys
+
+        #region Files
+
+        #endregion Files
     }
 }
