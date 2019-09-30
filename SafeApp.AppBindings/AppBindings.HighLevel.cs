@@ -403,6 +403,53 @@ namespace SafeApp.AppBindings
 
         #region Files
 
+        public Task<(string, ProcessedFiles, FilesMap)> CreateFilesContainerAsync(
+            IntPtr appPtr,
+            string location,
+            string destination,
+            bool recursive,
+            bool dryRun)
+    {
+            var (ret, userData) = BindingUtils.PrepareTask<(string, ProcessedFiles, FilesMap)>();
+            CreateFilesContainerNative(appPtr, location, destination, recursive, dryRun, userData, DelegateOnFfiResultXorUrlProcessedFilesFilesMapCb);
+            return ret;
+        }
+
+        [DllImport(DllName, EntryPoint = "files_container_create")]
+        private static extern void CreateFilesContainerNative(
+            IntPtr appPtr,
+            [MarshalAs(UnmanagedType.LPStr)] string location,
+            [MarshalAs(UnmanagedType.LPStr)] string destination,
+            bool recursive,
+            bool dryRun,
+            IntPtr userData,
+            FfiResultXorUrlProcessedFilesFilesMapCb oCb);
+
+        private delegate void FfiResultXorUrlProcessedFilesFilesMapCb(
+            IntPtr userData,
+            IntPtr result,
+            string xorUrl,
+            IntPtr processedFiles,
+            IntPtr filesMap);
+
+#if __IOS__
+        [MonoPInvokeCallback(typeof(FfiResultXorUrlProcessedFilesFilesMapCb))]
+#endif
+        private static void OnFfiResultXorUrlProcessedFilesFilesMapCb(
+            IntPtr userData,
+            IntPtr result,
+            string xorUrl,
+            IntPtr processedFiles,
+            IntPtr filesMap)
+            => BindingUtils.CompleteTask(
+                userData,
+                Marshal.PtrToStructure<FfiResult>(result),
+                () => (xorUrl,
+                    new ProcessedFiles(Marshal.PtrToStructure<ProcessedFilesNative>(processedFiles)),
+                    new FilesMap(Marshal.PtrToStructure<FilesMapNative>(filesMap))));
+
+        private static readonly FfiResultXorUrlProcessedFilesFilesMapCb DelegateOnFfiResultXorUrlProcessedFilesFilesMapCb = OnFfiResultXorUrlProcessedFilesFilesMapCb;
+
         #endregion Files
     }
 }

@@ -1,4 +1,6 @@
-﻿using SafeApp.AppBindings;
+﻿using System.Threading.Tasks;
+using SafeApp.AppBindings;
+using SafeApp.Core;
 
 namespace SafeApp.API
 {
@@ -17,5 +19,15 @@ namespace SafeApp.API
         /// <param name="appPtr">SafeApp pointer.</param>
         internal Files(SafeAppPtr appPtr)
             => _appPtr = appPtr;
+
+        /// <summary>
+        /// Create a FilesContainer.
+        /// </summary>
+        public Task<(string, ProcessedFiles, FilesMap)> CreateFilesContainerAsync(
+            string location,
+            string destination,
+            bool recursive,
+            bool dryRun) =>
+            AppBindings.CreateFilesContainerAsync(_appPtr, location, destination, recursive, dryRun);
     }
 }

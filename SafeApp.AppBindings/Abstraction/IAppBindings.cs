@@ -90,6 +90,13 @@ namespace SafeApp.AppBindings
 
         #region Files
 
+        Task<(string, ProcessedFiles, FilesMap)> CreateFilesContainerAsync(
+            IntPtr appPtr,
+            string location,
+            string destination,
+            bool recursive,
+            bool dryRun);
+
         #endregion Files
     }
 }

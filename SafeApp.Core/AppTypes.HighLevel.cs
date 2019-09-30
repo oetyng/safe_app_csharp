@@ -1,9 +1,82 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 
 namespace SafeApp.Core
 {
+    [PublicAPI]
+    public struct FileItem
+    {
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string FileMetadata;
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string FileXorUrl;
+    }
+
+    [PublicAPI]
+    public struct ProcessedFile
+    {
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string FileName;
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string FileMetadata;
+        [MarshalAs(UnmanagedType.LPStr)]
+        public string FileXorUrl;
+    }
+
+    [PublicAPI]
+    public struct ProcessedFiles
+    {
+        public List<ProcessedFile> Files;
+
+        internal ProcessedFiles(ProcessedFilesNative native)
+            => Files = BindingUtils.CopyToObjectList<ProcessedFile>(native.ProcessedFilesPtr, (int)native.ProcessedFilesLen);
+
+        internal ProcessedFilesNative ToNative()
+            => new ProcessedFilesNative
+            {
+                ProcessedFilesPtr = BindingUtils.CopyFromObjectList(Files),
+                ProcessedFilesLen = (UIntPtr)(Files?.Count ?? 0),
+                ProcessedFilesCap = UIntPtr.Zero
+            };
+    }
+
+    internal struct ProcessedFilesNative
+    {
+        public IntPtr ProcessedFilesPtr;
+        public UIntPtr ProcessedFilesLen;
+
+        // ReSharper disable once NotAccessedField.Compiler
+        public UIntPtr ProcessedFilesCap;
+    }
+
+    [PublicAPI]
+    public struct FilesMap
+    {
+        public List<FileItem> Files;
+
+        internal FilesMap(FilesMapNative native)
+            => Files = BindingUtils.CopyToObjectList<FileItem>(native.FilesItemsPtr, (int)native.FilesItemsLen);
+
+        internal FilesMapNative ToNative()
+            => new FilesMapNative
+            {
+                FilesItemsPtr = BindingUtils.CopyFromObjectList(Files),
+                FilesItemsLen = (UIntPtr)(Files?.Count ?? 0),
+                FilesItemsCap = UIntPtr.Zero
+            };
+    }
+
+    internal struct FilesMapNative
+    {
+        public IntPtr FilesItemsPtr;
+        public UIntPtr FilesItemsLen;
+
+        // ReSharper disable once NotAccessedField.Compiler
+        public UIntPtr FilesItemsCap;
+    }
+
     [PublicAPI]
     public struct XorUrlEncoder
     {
